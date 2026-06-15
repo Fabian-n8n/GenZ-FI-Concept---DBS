@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { DBSCard } from '../page';
 
 function HoldContent() {
   const router = useRouter();
@@ -14,31 +15,31 @@ function HoldContent() {
   }, [merchant, router]);
 
   return (
-    <div className="apple-pay-screen screen" style={{ gap: 0 }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: '0 28px' }}>
-        {/* NFC wave */}
-        <div style={{ position: 'relative', width: 100, height: 100, display: 'grid', placeItems: 'center' }}>
-          {[40, 62, 86].map((size, i) => (
+    <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0 }}>
+      {/* DBS card at top — matches Claude Design reference */}
+      <div style={{ padding: 'calc(env(safe-area-inset-top) + 20px) 20px 0' }}>
+        <DBSCard />
+      </div>
+
+      {/* NFC + text centered below */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: '0 28px' }}>
+        {/* NFC concentric rings */}
+        <div style={{ position: 'relative', width: 96, height: 96, display: 'grid', placeItems: 'center' }}>
+          {[36, 60, 86].map((size, i) => (
             <div key={i} style={{
               position: 'absolute',
-              width: size,
-              height: size,
+              width: size, height: size,
               borderRadius: '50%',
-              border: '2px solid rgba(255,255,255,0.4)',
-              animation: `fadeIn 1s ease ${i * 0.3}s infinite`,
+              border: `${i === 2 ? 1.5 : 2}px solid rgba(255,255,255,${0.5 - i * 0.12})`,
+              animation: `fadeIn 1.2s ease ${i * 0.28}s infinite`,
             }} />
           ))}
-          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#fff', zIndex: 1 }} />
+          <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#fff', zIndex: 1 }} />
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.2px' }}>Hold Near Reader</div>
-          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', marginTop: 5 }}>Keep your phone close to the terminal</div>
-        </div>
-
-        <div style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 14, padding: '14px 20px', textAlign: 'center', backdropFilter: 'blur(8px)', width: '100%', maxWidth: 320 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>{merchant}</div>
-          <div style={{ fontSize: 26, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', fontVariantNumeric: 'tabular-nums' }}>S$31.50</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.3px' }}>Hold Near Reader</div>
+          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', marginTop: 5 }}>Keep your phone close to the terminal</div>
         </div>
       </div>
     </div>

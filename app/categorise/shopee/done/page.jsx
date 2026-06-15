@@ -56,16 +56,6 @@ export default function ShopeeDonePage() {
           <div style={{ marginTop: 18, fontSize: 15, color: '#8c8c8c' }}>Credit / Debit Card</div>
         </div>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', background: '#eafaf0', borderRadius: 12, padding: 16 }}>
-          <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#1ca65b', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 14, flexShrink: 0 }}>✓</div>
-          <span style={{ color: '#15803d', fontSize: 14.5, lineHeight: 1.45, fontWeight: 500 }}>
-            DBS auto-categorised this transaction under <strong>{cat}</strong>.{' '}
-            <span style={{ color: 'var(--color-brand)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setOverlay('changecat')}>
-              Change
-            </span>
-          </span>
-        </div>
-
         {changed && (
           <div style={{ background: 'var(--dbs-blue-50)', borderRadius: 10, padding: '12px 16px', fontSize: 14, color: 'var(--dbs-blue-500)', fontWeight: 500 }}>
             ✓ Category updated to <strong>{cat}</strong>

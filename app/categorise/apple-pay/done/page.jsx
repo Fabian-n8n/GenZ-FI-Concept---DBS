@@ -7,7 +7,7 @@ import Drawer from '@/components/primitives/Drawer';
 import TopNotif from '@/components/primitives/TopNotif';
 import CatIcon from '@/components/primitives/CatIcon';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
-import { setNextRouteDirection } from '@/components/shell/RouteTransition';
+import { DBSCard } from '../page';
 
 function CategoryPicker({ title, subtitle, options, selected, onPick }) {
   return (
@@ -54,47 +54,41 @@ function DoneContent() {
     if (!categorised) return 'Payment successful';
     return changed ? 'Transaction has been categorised' : 'Payment successful';
   }
-
   function bannerText() {
     if (!categorised) return <span>S$31.50 at <strong>{merchantName}</strong>. Tap to categorise.</span>;
     return <span>S$31.50 at <strong>{merchantName}</strong>, categorised as <strong>{cat}</strong>. Tap to change.</span>;
   }
 
   return (
-    <div className="apple-pay-screen screen" style={{ position: 'relative' }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: '0 28px' }}>
-        <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(28,166,91,0.15)', border: '3px solid #1ca65b', display: 'grid', placeItems: 'center' }}>
-          <svg width="38" height="38" fill="none" stroke="#1ca65b" strokeWidth="3" strokeLinecap="round"><path d="M8 20l10 10L34 10" /></svg>
-        </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 22, fontWeight: 800, color: '#fff' }}>Payment Successful</div>
-          <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.65)', marginTop: 4 }}>{merchantName}</div>
-        </div>
-
-        <div style={{ fontSize: 48, fontWeight: 800, color: '#fff', letterSpacing: '-2px', fontVariantNumeric: 'tabular-nums' }}>
-          <span style={{ fontSize: 24, fontWeight: 600, verticalAlign: '8px', marginRight: 3 }}>S$</span>31.50
-        </div>
-
-        {categorised && cat && (
-          <div style={{ background: 'rgba(28,166,91,0.12)', borderRadius: 10, padding: '10px 18px', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <svg width="18" height="18" fill="none" stroke="#1ca65b" strokeWidth="2.4" strokeLinecap="round"><path d="M3 9l5 5L15 5" /></svg>
-            <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: 14, fontWeight: 500 }}>
-              Auto-categorised as <strong style={{ color: '#fff' }}>{cat}</strong>
-            </span>
-          </div>
-        )}
-
-        <div style={{ display: 'flex', gap: 12, width: '100%' }}>
-          <button onClick={() => { setNextRouteDirection(1); router.push('/categorise/apple-pay'); }} style={{ flex: 1, padding: '13px 0', background: 'rgba(255,255,255,0.12)', color: '#fff', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
-            New payment
-          </button>
-          <button onClick={() => { setNextRouteDirection(-1); router.push('/categorise'); }} style={{ flex: 1, padding: '13px 0', background: '#fff', color: '#000', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
-            Done
-          </button>
-        </div>
+    <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0, position: 'relative' }}>
+      {/* DBS card at top — matches Claude Design reference */}
+      <div style={{ padding: 'calc(env(safe-area-inset-top) + 20px) 20px 0' }}>
+        <DBSCard />
       </div>
 
+      {/* Green ✓ check + Done centered — matches Claude Design reference */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+        <button
+          onClick={() => router.push('/categorise')}
+          style={{
+            width: 80, height: 80,
+            borderRadius: '50%',
+            background: '#1ca65b',
+            border: 'none',
+            display: 'grid', placeItems: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 0 0 6px rgba(28,166,91,0.2)',
+          }}
+          aria-label="Done"
+        >
+          <svg width="38" height="38" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round">
+            <path d="M8 20l10 10L34 10" />
+          </svg>
+        </button>
+        <div style={{ fontSize: 17, fontWeight: 700, color: '#fff' }}>Done</div>
+      </div>
+
+      {/* Categorisation notification banner */}
       {showBanner && !overlay && (
         <TopNotif
           title={bannerTitle()}

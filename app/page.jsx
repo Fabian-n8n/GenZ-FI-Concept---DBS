@@ -1,5 +1,27 @@
 import Link from 'next/link';
 
+// Lock icon — white stroke, 24×24
+function IconLock() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" />
+      <path d="M7 11V7a5 5 0 0110 0v4" />
+      <circle cx="12" cy="16" r="1.2" fill="#fff" stroke="none" />
+    </svg>
+  );
+}
+
+// Chart-with-search icon — white stroke, 24×24
+function IconChart() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="3 17 9 11 13 15 21 7" />
+      <circle cx="10" cy="14" r="5.5" />
+      <path d="M14 18l3 3" />
+    </svg>
+  );
+}
+
 export default function HomePage() {
   return (
     <div style={{
@@ -35,10 +57,10 @@ export default function HomePage() {
               padding: '20px 20px',
               cursor: 'pointer',
               transition: 'background 0.15s',
-              }}>
+            }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#ff1a1a,#a30000)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-                  <img src="/assets/icons/lock-round.svg" alt="" aria-hidden="true" style={{ width: 24, height: 24, display: 'block' }} />
+                  <IconLock />
                 </div>
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 1</div>
@@ -67,7 +89,7 @@ export default function HomePage() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#0a6ed1,#054a8f)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
-                  <img src="/assets/icons/chart-search.svg" alt="" aria-hidden="true" style={{ width: 24, height: 24, display: 'block' }} />
+                  <IconChart />
                 </div>
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 2</div>
