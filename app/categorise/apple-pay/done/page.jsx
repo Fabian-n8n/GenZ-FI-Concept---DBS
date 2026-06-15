@@ -61,9 +61,9 @@ function DoneContent() {
 
   return (
     <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0, position: 'relative' }}>
-      {/* DBS card at top — matches Claude Design reference */}
+      {/* DBS card at top — compact with padding */}
       <div style={{ padding: 'calc(env(safe-area-inset-top) + 20px) 20px 0' }}>
-        <DBSCard />
+        <DBSCard compact />
       </div>
 
       {/* Green ✓ check + Done centered — matches Claude Design reference */}

@@ -11,13 +11,12 @@ function IconLock() {
   );
 }
 
-// Chart-with-search icon — white stroke, 24×24
+// Pie-chart / categorise icon — clean 2-slice pie, white stroke 24×24
 function IconChart() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="3 17 9 11 13 15 21 7" />
-      <circle cx="10" cy="14" r="5.5" />
-      <path d="M14 18l3 3" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3v9l6.3 4.5" />
     </svg>
   );
 }
