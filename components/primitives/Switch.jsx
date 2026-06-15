@@ -1,34 +1,40 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
 export default function Switch({ on, onChange }) {
   return (
-    <button
+    <motion.button
       role="switch"
       aria-checked={on}
-      onClick={onChange}
+      onClick={() => onChange?.(!on)}
+      whileTap={{ scale: 0.97 }}
+      transition={{ duration: 0.1 }}
       style={{
         width: 51,
         height: 31,
         borderRadius: 999,
-        background: on ? '#34c759' : '#e3e6ea',
         border: 'none',
+        padding: 0,
         cursor: 'pointer',
+        background: on ? 'var(--color-brand)' : 'var(--dbs-gray-300)',
         position: 'relative',
-        transition: 'background 0.2s',
-        flexShrink: 0,
+        flex: 'none',
       }}
     >
-      <span style={{
-        position: 'absolute',
-        top: 2,
-        left: on ? 22 : 2,
-        width: 27,
-        height: 27,
-        borderRadius: '50%',
-        background: '#fff',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-        transition: 'left 0.2s',
-      }} />
-    </button>
+      <motion.span
+        animate={{ left: on ? 22 : 2 }}
+        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: 'absolute',
+          top: 2,
+          width: 27,
+          height: 27,
+          borderRadius: '50%',
+          background: '#fff',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+        }}
+      />
+    </motion.button>
   );
 }

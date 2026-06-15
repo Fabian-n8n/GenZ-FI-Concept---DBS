@@ -50,7 +50,7 @@ function PreviewContent() {
       <div className="screen-footer">
         <button className="btn-primary" onClick={() => {
           if (mode === 'change') {
-            router.push('/payday/faceid-confirm?fw=' + fwId + '&action=changeframework');
+            router.push(`/payday/faceid?next=success&variant=updated&fw=${fwId}`);
           } else {
             setShowLock(true);
           }
@@ -75,7 +75,7 @@ function PreviewContent() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <button className="btn-primary" onClick={() => router.push(`/payday/success?fw=${fwId}&variant=locked`)}>Lock my savings</button>
-            <button className="btn-ghost" onClick={() => { setShowLock(false); router.push('/payday/home'); }}>Not now</button>
+            <button className="btn-ghost" onClick={() => { setShowLock(false); router.push(`/payday/home?fw=${fwId}&locked=0`); }}>Not now</button>
           </div>
         </Drawer>
       )}

@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -10,7 +10,7 @@ export default function LoginPage() {
     <div className="screen dbs-login">
       {/* Bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'calc(env(safe-area-inset-top) + 4px) 16px 16px' }}>
-        <button className="icon-btn" style={{ color: '#fff' }} onClick={() => router.push('/payday')} aria-label="Close">
+        <button className="icon-btn" style={{ color: '#fff' }} onClick={() => { setNextRouteDirection(-1); router.push('/payday'); }} aria-label="Close">
           <X size={24} />
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

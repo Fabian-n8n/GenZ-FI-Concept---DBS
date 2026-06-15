@@ -1,21 +1,27 @@
 'use client';
-import { useState } from 'react';
+
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AppBar from '@/components/shell/AppBar';
 import Drawer from '@/components/primitives/Drawer';
+import CatIcon from '@/components/primitives/CatIcon';
 import { Minus } from 'lucide-react';
-import { CATS, MASTER_CATS, PICK_OPTIONS } from '@/lib/categories';
+import { ADDABLE_CATS, CATS, MASTER_CATS } from '@/lib/categories';
 
 function CategoryPicker({ title, subtitle, options, onPick }) {
   return (
     <div>
       <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 6 }}>{title}</div>
       <div style={{ fontSize: 14.5, color: 'var(--text-secondary)', marginBottom: 20, lineHeight: 1.5 }}>{subtitle}</div>
-      {options.length === 0 && <div style={{ fontSize: 14, color: 'var(--text-tertiary)', textAlign: 'center', padding: '20px 0' }}>All categories are already enabled.</div>}
-      {options.map(opt => (
+      {options.length === 0 && (
+        <div style={{ fontSize: 14, color: 'var(--text-tertiary)', textAlign: 'center', padding: '20px 0' }}>
+          All categories are already enabled.
+        </div>
+      )}
+      {options.map((opt) => (
         <button key={opt} className="cat-option" onClick={() => onPick(opt)}>
-          <span style={{ width: 38, height: 38, borderRadius: 4, background: CATS[opt]?.color || '#aaa', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 18, flexShrink: 0 }}>
-            {opt === 'Shopping' ? '🛍️' : opt === 'Dining' ? '🍜' : opt === 'Insurance' ? '🛡️' : opt === 'Rent' ? '🏠' : opt === 'Investment' ? '📈' : '🚗'}
+          <span className="cat-icon" style={{ width: 38, height: 38, background: CATS[opt]?.color || '#aaa', color: CATS[opt]?.ink || '#fff' }}>
+            <CatIcon cat={opt} size={19} />
           </span>
           <span style={{ flex: 1, textAlign: 'left', fontSize: 16, fontWeight: 600, color: 'var(--text-primary)' }}>{opt}</span>
         </button>
@@ -29,7 +35,10 @@ export default function EditCategoriesPage() {
   const [cats, setCats] = useState(MASTER_CATS);
   const [showAdd, setShowAdd] = useState(false);
 
-  const addable = MASTER_CATS.filter(c => !cats.includes(c));
+  const available = useMemo(() => {
+    const all = [...MASTER_CATS, ...ADDABLE_CATS];
+    return all.filter((cat, idx) => all.indexOf(cat) === idx && !cats.includes(cat));
+  }, [cats]);
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
@@ -40,14 +49,14 @@ export default function EditCategoriesPage() {
           Add or remove categories used for auto-categorisation.
         </p>
         <div>
-          {cats.map(cat => (
+          {cats.map((cat) => (
             <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderTop: '1px solid var(--color-border)' }}>
-              <span className="cat-icon" style={{ background: CATS[cat]?.color, color: CATS[cat]?.ink, width: 38, height: 38, fontSize: 18 }}>
-                {cat === 'Shopping' ? '🛍️' : cat === 'Dining' ? '🍜' : cat === 'Insurance' ? '🛡️' : cat === 'Rent' ? '🏠' : cat === 'Investment' ? '📈' : '🚗'}
+              <span className="cat-icon" style={{ background: CATS[cat]?.color, color: CATS[cat]?.ink, width: 38, height: 38 }}>
+                <CatIcon cat={cat} size={19} />
               </span>
               <span style={{ flex: 1, fontSize: 15.5, fontWeight: 600, color: 'var(--text-primary)' }}>{cat}</span>
               <button
-                onClick={() => setCats(prev => prev.filter(c => c !== cat))}
+                onClick={() => setCats((prev) => prev.filter((c) => c !== cat))}
                 style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--dbs-gray-100)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: 'var(--dbs-gray-600)' }}
                 aria-label={`Remove ${cat}`}
               >
@@ -66,9 +75,12 @@ export default function EditCategoriesPage() {
         <Drawer onClose={() => setShowAdd(false)}>
           <CategoryPicker
             title="Add a category"
-            subtitle={addable.length ? 'Pick a category to track in auto-categorisation.' : 'All categories are already enabled.'}
-            options={addable}
-            onPick={c => { setCats(prev => [...prev, c]); setShowAdd(false); }}
+            subtitle={available.length ? 'Pick a category to track in auto-categorisation.' : 'All categories are already enabled.'}
+            options={available}
+            onPick={(c) => {
+              setCats((prev) => [...prev, c]);
+              setShowAdd(false);
+            }}
           />
         </Drawer>
       )}

@@ -1,4 +1,5 @@
 import './globals.css';
+import RouteTransition from '@/components/shell/RouteTransition';
 
 export const metadata = {
   title: 'DBS Concept',
@@ -28,7 +29,9 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        <RouteTransition>{children}</RouteTransition>
+      </body>
     </html>
   );
 }

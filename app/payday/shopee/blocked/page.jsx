@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import TopNotif from '@/components/primitives/TopNotif';
 import Drawer from '@/components/primitives/Drawer';
 import { X } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 export default function ShopeeBlockedPage() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function ShopeeBlockedPage() {
       <div style={{ background: '#ee4d2d', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px 16px 16px', position: 'relative' }}>
           <span style={{ color: '#fff', fontSize: 18, fontWeight: 600 }}>Payment Result</span>
-          <button onClick={() => router.push('/payday/shopee')} style={{ position: 'absolute', right: 12, top: 0, background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 4 }}>
+          <button onClick={() => { setNextRouteDirection(-1); router.push('/payday/shopee'); }} style={{ position: 'absolute', right: 12, top: 0, background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 4 }}>
             <X size={24} />
           </button>
         </div>
@@ -44,7 +45,7 @@ export default function ShopeeBlockedPage() {
       </div>
 
       <div style={{ flexShrink: 0, padding: '12px 16px calc(16px + env(safe-area-inset-bottom))' }}>
-        <button onClick={() => router.push('/payday/shopee')} style={{ width: '100%', height: 50, borderRadius: 4, background: '#ee4d2d', color: '#fff', border: 'none', fontSize: 17, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
+        <button onClick={() => { setNextRouteDirection(-1); router.push('/payday/shopee'); }} style={{ width: '100%', height: 50, borderRadius: 4, background: '#ee4d2d', color: '#fff', border: 'none', fontSize: 17, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
           OK
         </button>
       </div>

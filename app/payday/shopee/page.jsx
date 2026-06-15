@@ -1,31 +1,21 @@
 'use client';
-import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
-import Drawer from '@/components/primitives/Drawer';
-import Alert from '@/components/primitives/Alert';
-import TopNotif from '@/components/primitives/TopNotif';
 import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 function ShopeeContent() {
   const router = useRouter();
-  const params = useSearchParams();
-  const locked = params.get('locked') === '1';
-  const [overlay, setOverlay] = useState(null);
 
   function placeOrder() {
-    if (locked) {
-      router.push('/payday/shopee/blocked');
-    } else {
-      router.push('/payday/shopee/blocked');
-    }
+    router.push('/payday/shopee/blocked');
   }
 
   return (
     <div className="screen" style={{ background: '#f4f4f4', position: 'relative' }}>
       <div style={{ background: '#fff', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="shopee-bar">
-          <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => router.back()} />
+          <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => { setNextRouteDirection(-1); router.back(); }} />
           <span style={{ flex: 1, textAlign: 'center', color: '#222', fontWeight: 600, fontSize: 18 }}>Checkout</span>
         </div>
       </div>

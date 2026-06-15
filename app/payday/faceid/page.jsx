@@ -1,12 +1,35 @@
 'use client';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function FaceIdPage() {
+function FaceIdContent() {
   const router = useRouter();
+  const params = useSearchParams();
 
   useEffect(() => {
-    const t = setTimeout(() => router.push('/payday/home?setup=1'), 1600);
+    const t = setTimeout(() => {
+      const next = params.get('next');
+
+      if (next === 'success') {
+        // Pause/turn-off flow from manage page
+        const variant    = params.get('variant')    || 'off';
+        const fw         = params.get('fw')         || 'warren';
+        const pauseMode  = params.get('pauseMode')  || '';
+        const pauseLabel = params.get('pauseLabel') || '';
+        router.push(`/payday/success?variant=${variant}&fw=${fw}&pauseMode=${pauseMode}&pauseLabel=${encodeURIComponent(pauseLabel)}`);
+
+      } else if (next === 'frameworks') {
+        // Change-framework flow triggered from manage page
+        const mode    = params.get('mode')    || 'change';
+        const current = params.get('current') || 'warren';
+        router.push(`/payday/frameworks?mode=${mode}&current=${current}`);
+
+      } else {
+        // Default: initial login after payday notification
+        router.push('/payday/home?setup=1');
+      }
+    }, 1600);
     return () => clearTimeout(t);
   }, []);
 
@@ -18,7 +41,6 @@ export default function FaceIdPage() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, marginTop: 40 }}>
-        {/* Scanning ring */}
         <div style={{ position: 'relative', width: 100, height: 100 }}>
           <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style={{ position: 'absolute', inset: 0 }}>
             <circle cx="50" cy="50" r="44" stroke="rgba(255,255,255,0.12)" strokeWidth="4"/>
@@ -31,7 +53,6 @@ export default function FaceIdPage() {
               style={{ animation: 'scanSpin 1.2s linear infinite', transformOrigin: '50px 50px' }}
             />
           </svg>
-          {/* Face ID icon */}
           <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center' }}>
             <svg width="38" height="38" viewBox="0 0 38 38" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round">
               <path d="M3 13V9a6 6 0 016-6h4M35 13V9a6 6 0 00-6-6h-4M3 25v4a6 6 0 006 6h4M35 25v4a6 6 0 01-6 6h-4"/>
@@ -51,5 +72,13 @@ export default function FaceIdPage() {
         <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>Tap anywhere to continue</div>
       </div>
     </div>
+  );
+}
+
+export default function FaceIdPage() {
+  return (
+    <Suspense fallback={<div className="screen" style={{ background: 'var(--dbs-navy-900)' }} />}>
+      <FaceIdContent />
+    </Suspense>
   );
 }

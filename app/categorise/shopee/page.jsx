@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 export default function CatShopeePage() {
   const router = useRouter();
@@ -9,7 +10,7 @@ export default function CatShopeePage() {
     <div className="screen" style={{ background: '#f4f4f4' }}>
       <div style={{ background: '#fff', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="shopee-bar">
-          <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => router.push('/categorise')} />
+          <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => { setNextRouteDirection(-1); router.push('/categorise'); }} />
           <span style={{ flex: 1, textAlign: 'center', color: '#222', fontWeight: 600, fontSize: 18 }}>Checkout</span>
         </div>
       </div>

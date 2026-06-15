@@ -1,11 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 export default function AppBar({ title, onBack, backHref, right }) {
   const router = useRouter();
 
   function handleBack() {
+    setNextRouteDirection(-1);
     if (onBack) { onBack(); return; }
     if (backHref) { router.push(backHref); return; }
     router.back();
