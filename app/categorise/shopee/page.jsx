@@ -1,6 +1,5 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 
 export default function CatShopeePage() {
@@ -8,8 +7,7 @@ export default function CatShopeePage() {
 
   return (
     <div className="screen" style={{ background: '#f4f4f4' }}>
-      <div style={{ background: '#fff', flexShrink: 0 }}>
-        <StatusBar dark />
+      <div style={{ background: '#fff', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="shopee-bar">
           <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => router.push('/categorise')} />
           <span style={{ flex: 1, textAlign: 'center', color: '#222', fontWeight: 600, fontSize: 18 }}>Checkout</span>

@@ -1,0 +1,17 @@
+{
+  "name": "DBS Concept",
+  "short_name": "DBS Concept",
+  "description": "DBS digibank Gen Z financial intelligence usability prototype",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#FF0000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/logo/dbs-mark-red.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

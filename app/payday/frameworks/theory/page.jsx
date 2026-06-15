@@ -1,7 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import { fwById, FRAMEWORKS } from '@/lib/frameworks';
@@ -15,7 +14,6 @@ function TheoryContent() {
 
   return (
     <div className="screen screen--white">
-      <StatusBar dark />
       <AppBar title={fw.tag} onBack={() => router.back()} />
 
       <div className="scroll" style={{ padding: '0 20px 20px' }}>

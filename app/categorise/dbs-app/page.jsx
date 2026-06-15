@@ -1,15 +1,12 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function DbsAppFaceUnlockPage() {
   const router = useRouter();
 
   return (
     <div className="unlock-screen screen">
-      <StatusBar dark />
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 32 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 'calc(env(safe-area-inset-top) + 16px)' }}>
         <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 40, height: 40, borderRadius: 10 }} />
         <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.3px' }}>digibank</span>
       </div>

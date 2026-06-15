@@ -1,7 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import BottomNav from '@/components/shell/BottomNav';
 import { Bell, Search, MessageSquare, Lock } from 'lucide-react';
 
@@ -45,8 +44,7 @@ function MoreContent() {
 
   return (
     <div className="screen screen--white">
-      <StatusBar dark />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '2px 16px 12px', background: '#fff', flexShrink: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: 'calc(env(safe-area-inset-top) + 2px) 16px 12px', background: '#fff', flexShrink: 0 }}>
         <div style={{ position: 'relative' }}>
           <Bell size={24} color="var(--text-primary)" />
           <span style={{ position: 'absolute', top: -5, right: -6, minWidth: 16, height: 16, borderRadius: 999, background: 'var(--color-brand)', color: '#fff', fontSize: 10, fontWeight: 700, display: 'grid', placeItems: 'center', padding: '0 4px', border: '1.5px solid #fff' }}>8</span>

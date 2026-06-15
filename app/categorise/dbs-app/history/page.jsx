@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import { Wallet, ChevronDown, Check, ChevronRight } from 'lucide-react';
 
@@ -18,7 +17,6 @@ export default function TransactionHistoryPage() {
 
   return (
     <div className="screen" style={{ background: 'var(--dbs-gray-50)' }}>
-      <StatusBar dark />
       <AppBar title="Transaction History" onBack={() => router.push('/categorise/dbs-app/home')} />
 
       <div className="scroll" style={{ paddingBottom: 16 }}>

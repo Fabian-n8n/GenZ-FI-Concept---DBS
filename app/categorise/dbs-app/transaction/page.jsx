@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Drawer from '@/components/primitives/Drawer';
 import { Pencil } from 'lucide-react';
@@ -49,7 +48,6 @@ function TransactionContent() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <StatusBar dark />
       <AppBar title="Transaction Details" onBack={() => router.back()} />
 
       <div className="scroll" style={{ padding: '6px 20px 20px' }}>

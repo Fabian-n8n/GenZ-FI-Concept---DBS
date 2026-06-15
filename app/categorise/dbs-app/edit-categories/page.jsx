@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Drawer from '@/components/primitives/Drawer';
 import { Minus } from 'lucide-react';
@@ -34,7 +33,6 @@ export default function EditCategoriesPage() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <StatusBar dark />
       <AppBar title="Edit Category" onBack={() => router.push('/categorise/dbs-app/breakdown?range=1m')} />
 
       <div className="scroll" style={{ padding: '4px 20px 20px' }}>

@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function LockScreen() {
   return (
@@ -26,10 +25,8 @@ export default function LockScreen() {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <StatusBar />
-
         {/* Time + date */}
-        <div style={{ textAlign: 'center', padding: '60px 24px 0', color: '#fff' }}>
+        <div style={{ textAlign: 'center', padding: 'calc(env(safe-area-inset-top) + 24px) 24px 0', color: '#fff' }}>
           <svg width="16" height="20" viewBox="0 0 16 20" fill="none" style={{ marginBottom: 12, opacity: 0.85 }}>
             <path d="M3.2 8V5.6a4.8 4.8 0 0 1 9.6 0V8" stroke="white" strokeWidth="1.6" strokeLinecap="round"/>
             <rect x="1.5" y="8" width="13" height="10.5" rx="3" fill="white"/>

@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function DbsBiometricPage() {
   const router = useRouter();
@@ -12,8 +11,7 @@ export default function DbsBiometricPage() {
 
   return (
     <div className="unlock-screen screen">
-      <StatusBar dark />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 32 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 'calc(env(safe-area-inset-top) + 16px)' }}>
         <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 40, height: 40, borderRadius: 10 }} />
         <span style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.3px' }}>digibank</span>
       </div>

@@ -1,16 +1,14 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function ApplePayFaceIdPage() {
   const router = useRouter();
 
   return (
     <div className="apple-pay-screen screen">
-      <StatusBar />
       {/* Wallet-style card art at top */}
-      <div style={{ position: 'absolute', top: 80, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 44px)', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
         <div style={{ width: 280, height: 172, borderRadius: 16, background: 'linear-gradient(135deg,#1a1a2e,#16213e)', boxShadow: '0 16px 48px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 22, border: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 32, height: 32, borderRadius: 8 }} />

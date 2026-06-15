@@ -1,7 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import { ChevronRight } from 'lucide-react';
@@ -17,7 +16,6 @@ function FrameworksContent() {
 
   return (
     <div className="screen screen--white">
-      <StatusBar dark />
       <AppBar
         title={isChange ? 'Change framework' : 'Framework selection'}
         onBack={() => router.back()}

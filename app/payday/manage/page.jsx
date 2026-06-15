@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import Switch from '@/components/primitives/Switch';
@@ -20,7 +19,6 @@ function ManageContent() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <StatusBar dark />
       <AppBar title="Payday Lock" onBack={() => router.push(`/payday/more?fw=${fwId}&locked=${locked ? 1 : 0}`)} />
 
       <div className="scroll" style={{ padding: '12px 20px 24px' }}>

@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
 import { X, Search, Pencil, ChevronRight } from 'lucide-react';
@@ -41,8 +40,7 @@ function BreakdownContent() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <StatusBar dark />
-      <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', padding: '0 8px', height: 52, background: '#fff', flexShrink: 0 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', padding: 'env(safe-area-inset-top) 8px 0', minHeight: 'calc(52px + env(safe-area-inset-top))', background: '#fff', flexShrink: 0 }}>
         <button className="icon-btn" onClick={() => router.push('/categorise/dbs-app/home')}><X size={22} /></button>
         <span />
         <button className="icon-btn"><Search size={21} /></button>

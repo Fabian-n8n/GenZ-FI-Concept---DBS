@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import Drawer from '@/components/primitives/Drawer';
 import Alert from '@/components/primitives/Alert';
 import TopNotif from '@/components/primitives/TopNotif';
@@ -24,8 +23,7 @@ function ShopeeContent() {
 
   return (
     <div className="screen" style={{ background: '#f4f4f4', position: 'relative' }}>
-      <div style={{ background: '#fff', flexShrink: 0 }}>
-        <StatusBar dark />
+      <div style={{ background: '#fff', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="shopee-bar">
           <ChevronLeft size={22} color="#ee4d2d" style={{ cursor: 'pointer' }} onClick={() => router.back()} />
           <span style={{ flex: 1, textAlign: 'center', color: '#222', fontWeight: 600, fontSize: 18 }}>Checkout</span>

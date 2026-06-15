@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import Drawer from '@/components/primitives/Drawer';
 import TopNotif from '@/components/primitives/TopNotif';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
@@ -64,8 +63,6 @@ function DoneContent() {
 
   return (
     <div className="apple-pay-screen screen" style={{ position: 'relative' }}>
-      <StatusBar />
-
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: '0 28px' }}>
         {/* Checkmark */}
         <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(28, 166, 91, 0.15)', border: '3px solid #1ca65b', display: 'grid', placeItems: 'center' }}>

@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import { X } from 'lucide-react';
 
 export default function LoginPage() {
@@ -9,10 +8,8 @@ export default function LoginPage() {
 
   return (
     <div className="screen dbs-login">
-      <StatusBar />
-
       {/* Bar */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px 16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'calc(env(safe-area-inset-top) + 4px) 16px 16px' }}>
         <button className="icon-btn" style={{ color: '#fff' }} onClick={() => router.push('/payday')} aria-label="Close">
           <X size={24} />
         </button>

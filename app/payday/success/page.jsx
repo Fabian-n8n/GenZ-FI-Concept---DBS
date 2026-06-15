@@ -1,7 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import { Lock, Check, Unlock } from 'lucide-react';
 import { fwById } from '@/lib/frameworks';
 
@@ -54,7 +53,6 @@ function SuccessContent() {
 
   return (
     <div className="screen screen--white">
-      <StatusBar />
 
       <div className="success-hero">
         <div className="success-badge">

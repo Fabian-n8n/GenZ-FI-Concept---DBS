@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 
 function BiometricContent() {
   const router = useRouter();
@@ -16,7 +15,6 @@ function BiometricContent() {
 
   return (
     <div className="apple-pay-screen screen" style={{ gap: 0 }}>
-      <StatusBar />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
         {/* Scan ring */}
         <div style={{ position: 'relative', width: 100, height: 100 }}>

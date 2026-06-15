@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
@@ -18,7 +17,6 @@ function PreviewContent() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <StatusBar dark />
       <AppBar title={fw.name} onBack={() => router.back()} />
 
       <div className="scroll" style={{ paddingBottom: 12 }}>

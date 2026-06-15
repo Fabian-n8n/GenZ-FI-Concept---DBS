@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function CategoriseLanding() {
   const flows = [
@@ -32,8 +31,7 @@ export default function CategoriseLanding() {
 
   return (
     <div className="screen screen--white">
-      <StatusBar dark />
-      <div style={{ padding: '8px 20px 0', flexShrink: 0 }}>
+      <div style={{ padding: 'calc(env(safe-area-inset-top) + 8px) 20px 0', flexShrink: 0 }}>
         <Link href="/" style={{ fontSize: 13, color: 'var(--color-brand)', fontWeight: 600, textDecoration: 'none' }}>← All flows</Link>
       </div>
       <div style={{ padding: '16px 20px 0', flexShrink: 0 }}>

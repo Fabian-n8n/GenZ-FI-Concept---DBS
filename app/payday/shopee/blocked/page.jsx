@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import TopNotif from '@/components/primitives/TopNotif';
 import Drawer from '@/components/primitives/Drawer';
 import { X } from 'lucide-react';
@@ -13,8 +12,7 @@ export default function ShopeeBlockedPage() {
 
   return (
     <div className="screen" style={{ background: '#f2f3f5', position: 'relative' }}>
-      <div style={{ background: '#ee4d2d', flexShrink: 0 }}>
-        <StatusBar />
+      <div style={{ background: '#ee4d2d', flexShrink: 0, paddingTop: 'env(safe-area-inset-top)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '6px 16px 16px', position: 'relative' }}>
           <span style={{ color: '#fff', fontSize: 18, fontWeight: 600 }}>Payment Result</span>
           <button onClick={() => router.push('/payday/shopee')} style={{ position: 'absolute', right: 12, top: 0, background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 4 }}>

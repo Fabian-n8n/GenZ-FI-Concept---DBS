@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 
 export default function FaceIdPage() {
   const router = useRouter();
@@ -13,9 +12,7 @@ export default function FaceIdPage() {
 
   return (
     <div className="screen" style={{ background: 'var(--dbs-navy-900)', alignItems: 'center', justifyContent: 'center', gap: 28 }}>
-      <StatusBar />
-
-      <div style={{ position: 'absolute', top: 80, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 44px)', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 10 }}>
         <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 40, height: 40, borderRadius: 10 }} />
         <span style={{ color: '#fff', fontSize: 22, fontWeight: 800, letterSpacing: '-0.3px' }}>digibank</span>
       </div>

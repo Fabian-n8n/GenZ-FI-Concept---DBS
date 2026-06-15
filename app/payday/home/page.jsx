@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import StatusBar from '@/components/shell/StatusBar';
 import BottomNav from '@/components/shell/BottomNav';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
@@ -46,7 +45,6 @@ function HomeContent() {
     <div className="screen" style={{ position: 'relative' }}>
       {/* Hero */}
       <div className="hero-header">
-        <StatusBar />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0 16px' }}>
           <div style={{ display: 'flex', gap: 18 }}>
             <Bell size={23} color="#fff" />

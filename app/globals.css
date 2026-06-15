@@ -142,7 +142,7 @@ html, body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   overflow: hidden;
   background: var(--color-bg);
   position: relative;
@@ -165,7 +165,7 @@ html, body {
   flex-shrink: 0;
   background: var(--gradient-hero);
   color: #fff;
-  padding: 0 var(--screen-gutter) 24px;
+  padding: env(safe-area-inset-top) var(--screen-gutter) 24px;
 }
 
 /* ── Card ── */
@@ -246,8 +246,8 @@ html, body {
   display: grid;
   grid-template-columns: 44px 1fr 44px;
   align-items: center;
-  height: 52px;
-  padding: 0 8px;
+  min-height: calc(52px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 8px 0;
   background: var(--color-surface);
   flex-shrink: 0;
 }
@@ -391,7 +391,7 @@ html, body {
 /* ── Top notification banner ── */
 .top-notif {
   position: absolute;
-  top: 52px;
+  top: calc(env(safe-area-inset-top) + 10px);
   left: 12px;
   right: 12px;
   background: rgba(28,28,30,0.92);
@@ -480,7 +480,7 @@ html, body {
 .success-hero {
   background: var(--gradient-hero);
   color: #fff;
-  padding: 32px var(--screen-gutter) 36px;
+  padding: calc(env(safe-area-inset-top) + 32px) var(--screen-gutter) 36px;
   text-align: center;
   flex-shrink: 0;
 }

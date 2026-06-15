@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import StatusBar from '@/components/shell/StatusBar';
 import BottomNav from '@/components/shell/BottomNav';
 import { Bell, Eye, History, ArrowRightLeft, FileText, CreditCard, BarChart2 } from 'lucide-react';
 
@@ -19,7 +18,6 @@ export default function CatHomeScreen() {
   return (
     <div className="screen">
       <div className="hero-header">
-        <StatusBar />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 0 14px' }}>
           <div style={{ display: 'flex', gap: 18 }}>
             <Bell size={23} color="#fff" />
