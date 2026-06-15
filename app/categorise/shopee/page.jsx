@@ -66,10 +66,13 @@ export default function CatShopeePage() {
           <div style={{ fontSize: 11.5, color: '#888' }}>Saved <span style={{ color: '#ee4d2d' }}>$18.94</span></div>
         </div>
         <button
-          onClick={() => router.push('/categorise/shopee/done')}
+          onClick={() => {
+            setNextRouteDirection(1);
+            router.push('/categorise/shopee/done');
+          }}
           style={{ background: '#ee4d2d', color: '#fff', border: 'none', borderRadius: 4, padding: '12px 24px', fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}
         >
-          Place Order
+          Check out
         </button>
       </div>
     </div>

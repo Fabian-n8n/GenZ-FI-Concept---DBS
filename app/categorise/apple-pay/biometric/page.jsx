@@ -6,16 +6,16 @@ import { Suspense } from 'react';
 function BiometricContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'known';
+  const merchant = params.get('merchant') || 'Hai Di Lao';
 
   useEffect(() => {
-    const t = setTimeout(() => router.push('/categorise/apple-pay/hold?merchant=' + merchant), 1400);
+    const t = setTimeout(() => router.push('/categorise/apple-pay/hold?merchant=' + encodeURIComponent(merchant)), 1400);
     return () => clearTimeout(t);
-  }, []);
+  }, [merchant, router]);
 
   return (
     <div className="apple-pay-screen screen" style={{ gap: 0 }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24, padding: '0 28px' }}>
         {/* Scan ring */}
         <div style={{ position: 'relative', width: 100, height: 100 }}>
           <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
@@ -37,8 +37,9 @@ function BiometricContent() {
           </div>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 20, fontWeight: 700, color: '#fff' }}>Authenticating…</div>
-          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>Biometric unlock in progress</div>
+          <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.2px' }}>Authenticating…</div>
+          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', marginTop: 5 }}>Face ID confirms this Apple Pay payment</div>
+          <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.42)', marginTop: 8 }}>{merchant}</div>
         </div>
       </div>
     </div>

@@ -29,20 +29,23 @@ export default function RouteTransition({ children }) {
   }, [pathname]);
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="sync" initial={false}>
       <motion.div
         key={pathname}
         custom={direction}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={{
-          initial: (dir) => ({ x: dir > 0 ? 28 : -28, opacity: 0 }),
-          animate: { x: 0, opacity: 1 },
-          exit: (dir) => ({ x: dir > 0 ? -20 : 20, opacity: 0 }),
-        }}
+        initial={{ x: direction > 0 ? 28 : -28 }}
+        animate={{ x: 0 }}
+        exit={{ x: direction > 0 ? -20 : 20 }}
         transition={{ duration: DURATION, ease: EASE }}
-        style={{ width: '100%', height: '100%' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          minHeight: '100dvh',
+          background: 'var(--color-bg)',
+          overflow: 'hidden',
+          willChange: 'transform',
+        }}
       >
         {children}
       </motion.div>

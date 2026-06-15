@@ -14,7 +14,7 @@ export default function CategoriseLanding() {
     {
       id: 'B',
       title: 'Flow B — DBS App Review',
-      sub: 'Face Unlock → Home → Transaction history → Breakdown → Edit',
+      sub: 'DBS login → Face ID → Home → Transaction history → Breakdown → Edit',
       href: '/categorise/dbs-app',
       color: 'var(--dbs-red-600)',
       emoji: '🏦',

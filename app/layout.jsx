@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>
+      <body style={{ background: 'var(--color-bg)', position: 'relative' }}>
         <RouteTransition>{children}</RouteTransition>
       </body>
     </html>

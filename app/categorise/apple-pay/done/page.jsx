@@ -7,6 +7,7 @@ import Drawer from '@/components/primitives/Drawer';
 import TopNotif from '@/components/primitives/TopNotif';
 import CatIcon from '@/components/primitives/CatIcon';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 
 function CategoryPicker({ title, subtitle, options, selected, onPick }) {
   return (
@@ -85,10 +86,10 @@ function DoneContent() {
         )}
 
         <div style={{ display: 'flex', gap: 12, width: '100%' }}>
-          <button onClick={() => router.push('/categorise/apple-pay')} style={{ flex: 1, padding: '13px 0', background: 'rgba(255,255,255,0.12)', color: '#fff', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
+          <button onClick={() => { setNextRouteDirection(1); router.push('/categorise/apple-pay'); }} style={{ flex: 1, padding: '13px 0', background: 'rgba(255,255,255,0.12)', color: '#fff', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
             New payment
           </button>
-          <button onClick={() => router.push('/categorise')} style={{ flex: 1, padding: '13px 0', background: '#fff', color: '#000', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
+          <button onClick={() => { setNextRouteDirection(-1); router.push('/categorise'); }} style={{ flex: 1, padding: '13px 0', background: '#fff', color: '#000', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>
             Done
           </button>
         </div>

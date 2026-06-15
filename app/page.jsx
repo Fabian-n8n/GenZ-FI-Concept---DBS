@@ -35,9 +35,11 @@ export default function HomePage() {
               padding: '20px 20px',
               cursor: 'pointer',
               transition: 'background 0.15s',
-            }}>
+              }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#ff1a1a,#a30000)', display: 'grid', placeItems: 'center', fontSize: 20, flexShrink: 0 }}>🔒</div>
+                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#ff1a1a,#a30000)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  <img src="/assets/icons/lock-round.svg" alt="" aria-hidden="true" style={{ width: 24, height: 24, display: 'block' }} />
+                </div>
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 1</div>
                   <div style={{ fontSize: 17, fontWeight: 800, color: '#fff' }}>Payday Interception</div>
@@ -64,7 +66,9 @@ export default function HomePage() {
               cursor: 'pointer',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#0a6ed1,#054a8f)', display: 'grid', placeItems: 'center', fontSize: 20, flexShrink: 0 }}>📊</div>
+                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'linear-gradient(135deg,#0a6ed1,#054a8f)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  <img src="/assets/icons/chart-search.svg" alt="" aria-hidden="true" style={{ width: 24, height: 24, display: 'block' }} />
+                </div>
                 <div>
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 2</div>
                   <div style={{ fontSize: 17, fontWeight: 800, color: '#fff' }}>Auto-Categorisation</div>

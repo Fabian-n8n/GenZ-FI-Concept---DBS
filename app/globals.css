@@ -136,7 +136,8 @@ html, body {
   font-family: var(--font-sans);
   font-size: var(--size-body);
   color: var(--text-primary);
-  background: #1a1a1a;
+  background: var(--color-bg);
+  min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

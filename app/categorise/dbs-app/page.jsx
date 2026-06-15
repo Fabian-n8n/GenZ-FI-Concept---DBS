@@ -1,50 +1,92 @@
 'use client';
-import { useRouter } from 'next/navigation';
 
-export default function DbsAppFaceUnlockPage() {
+import { useRouter } from 'next/navigation';
+import { ChevronLeft } from 'lucide-react';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
+
+export default function DbsLoginPage() {
   const router = useRouter();
 
+  function goNext() {
+    router.push('/categorise/dbs-app/biometric');
+  }
+
   return (
-    <div className="unlock-screen screen">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 'calc(env(safe-area-inset-top) + 16px)' }}>
-        <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 40, height: 40, borderRadius: 10 }} />
-        <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.3px' }}>digibank</span>
-      </div>
-
-      <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginTop: 48 }}>Welcome back, Fabian</div>
-
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-        {/* Face ID circle */}
+    <div className="screen dbs-login" style={{ padding: '0 24px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 'calc(env(safe-area-inset-top) + 10px)', width: '100%' }}>
         <button
-          onClick={() => router.push('/categorise/dbs-app/biometric')}
-          style={{ width: 88, height: 88, borderRadius: '50%', background: 'var(--dbs-red-50)', border: '2px solid var(--dbs-red-200)', display: 'grid', placeItems: 'center', cursor: 'pointer' }}
+          className="icon-btn"
+          onClick={() => { setNextRouteDirection(-1); router.push('/categorise'); }}
+          aria-label="Back"
+          style={{ color: '#fff' }}
         >
-          <svg width="42" height="42" viewBox="0 0 38 38" fill="none" stroke="var(--color-brand)" strokeWidth="1.8" strokeLinecap="round">
-            <path d="M3 13V9a6 6 0 016-6h4M35 13V9a6 6 0 00-6-6h-4M3 25v4a6 6 0 006 6h4M35 25v4a6 6 0 01-6 6h-4"/>
-            <path d="M12 16v1M26 16v1M14 24s2 2.5 5 2.5 5-2.5 5-2.5M19 16v4h-2"/>
-          </svg>
+          <ChevronLeft size={26} />
         </button>
-        <div style={{ fontSize: 14.5, color: 'var(--text-tertiary)', fontWeight: 500 }}>Tap to log in securely</div>
+        <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 38, height: 38, borderRadius: 10 }} />
+        <div style={{ width: 44 }} />
       </div>
 
-      <button
-        onClick={() => router.push('/categorise/dbs-app/biometric')}
-        style={{
-          margin: '0 0 48px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-          background: 'var(--color-brand)', color: '#fff',
-          border: 'none', borderRadius: 4,
-          padding: '14px 28px', fontSize: 16, fontWeight: 700,
-          cursor: 'pointer', fontFamily: 'var(--font-sans)',
-          width: '100%',
-        }}
-      >
-        <svg width="20" height="20" viewBox="0 0 38 38" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round">
-          <path d="M3 13V9a6 6 0 016-6h4M35 13V9a6 6 0 00-6-6h-4M3 25v4a6 6 0 006 6h4M35 25v4a6 6 0 01-6 6h-4"/>
-          <path d="M12 16v1M26 16v1M14 24s2 2.5 5 2.5 5-2.5 5-2.5M19 16v4h-2"/>
-        </svg>
-        DBS Face Unlock
-      </button>
+      <div style={{ width: '100%', maxWidth: 420, margin: '20px auto 0', display: 'flex', flexDirection: 'column', gap: 24, flex: 1 }}>
+        <div style={{ paddingTop: 22 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>DBS digibank</div>
+          <div style={{ fontSize: 32, fontWeight: 800, color: '#fff', letterSpacing: '-0.8px', marginTop: 10, lineHeight: 1.05 }}>
+            Sign in to continue
+          </div>
+          <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.62)', lineHeight: 1.55, marginTop: 12 }}>
+            Access your account and review your transaction insights.
+          </div>
+        </div>
+
+        <div className="dbs-login-card">
+          <label style={{ display: 'block' }}>
+            <div style={{ padding: '15px 16px 6px', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>
+              Username
+            </div>
+            <input
+              className="dbs-login-input"
+              defaultValue="fabian.wong"
+              autoComplete="username"
+              spellCheck={false}
+            />
+          </label>
+          <label style={{ display: 'block' }}>
+            <div style={{ padding: '14px 16px 6px', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)' }}>
+              Password
+            </div>
+            <input
+              className="dbs-login-input"
+              type="password"
+              defaultValue="••••••••"
+              autoComplete="current-password"
+            />
+          </label>
+        </div>
+
+        <button className="dbs-login-btn" onClick={goNext}>
+          LOGIN
+        </button>
+
+        <button
+          onClick={goNext}
+          style={{
+            background: 'rgba(255,255,255,0.08)',
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderRadius: 4,
+            minHeight: 50,
+            fontFamily: 'var(--font-sans)',
+            fontSize: 15,
+            fontWeight: 700,
+            cursor: 'pointer',
+          }}
+        >
+          Use Face ID instead
+        </button>
+
+        <div style={{ marginTop: 'auto', paddingBottom: 28, textAlign: 'center', fontSize: 12.5, color: 'rgba(255,255,255,0.35)', lineHeight: 1.45 }}>
+          Prototype only · Sign-in is simulated for usability testing
+        </div>
+      </div>
     </div>
   );
 }
