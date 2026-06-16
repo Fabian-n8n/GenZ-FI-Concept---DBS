@@ -12,46 +12,49 @@ function XMark({ size = 26, color = '#fff' }) {
   );
 }
 
-// DBS Multi-Currency Visa Platinum — full-bleed, prominent
+// DBS Multi-Currency Visa Platinum card.
+// compact=false → full-bleed on start screen (no border-radius, no side shadow)
+// compact=true  → padded variant for hold/done (iOS reference: ~35% screen height)
 export function DBSCard({ compact = false }) {
   return (
     <div style={{
       width: '100%',
-      borderRadius: compact ? 14 : 0,
-      background: 'linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 60%, #1e1e1e 100%)',
-      padding: compact ? '20px 22px 24px' : '28px 28px 32px',
+      borderRadius: compact ? 18 : 0,
+      background: 'linear-gradient(155deg, #222222 0%, #1a1a1a 40%, #111111 100%)',
+      // Compact: generous vertical padding so card fills ~35% of screen height
+      padding: compact ? '26px 24px 30px' : '28px 28px 32px',
       position: 'relative',
       overflow: 'hidden',
-      boxShadow: compact ? '0 16px 40px rgba(0,0,0,0.55)' : 'none',
+      boxShadow: compact ? '0 20px 48px rgba(0,0,0,0.7)' : 'none',
     }}>
       {/* Large star watermark — anchored to right edge */}
       <div style={{
         position: 'absolute',
-        right: compact ? -24 : -28,
+        right: compact ? -26 : -28,
         top: '50%',
         transform: 'translateY(-50%)',
         pointerEvents: 'none',
         opacity: 0.95,
       }}>
-        <XMark size={compact ? 130 : 180} color="rgba(255,255,255,0.93)" />
+        <XMark size={compact ? 160 : 180} color="rgba(255,255,255,0.93)" />
       </div>
 
       {/* Top row: DBS logo left · VISA Platinum right */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <XMark size={compact ? 24 : 30} color="#fff" />
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 18 : 22, letterSpacing: '-0.3px' }}>DBS</span>
+          <XMark size={compact ? 26 : 30} color="#fff" />
+          <span style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 20 : 22, letterSpacing: '-0.3px' }}>DBS</span>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 12 : 14, letterSpacing: '0.04em' }}>VISA</div>
-          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: compact ? 10 : 12 }}>Platinum</div>
+          <div style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 13 : 14, letterSpacing: '0.04em' }}>VISA</div>
+          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: compact ? 11 : 12 }}>Platinum</div>
         </div>
       </div>
 
       {/* Card type */}
       <div style={{
-        color: 'rgba(255,255,255,0.5)',
-        fontSize: compact ? 10 : 12,
+        color: 'rgba(255,255,255,0.45)',
+        fontSize: compact ? 10.5 : 12,
         fontWeight: 700,
         letterSpacing: '0.14em',
         marginTop: 8,
@@ -60,27 +63,27 @@ export function DBSCard({ compact = false }) {
         MULTI-CURRENCY
       </div>
 
-      {/* Chip */}
+      {/* Chip — larger in compact to fill the taller card */}
       <div style={{
-        width: compact ? 38 : 48,
-        height: compact ? 26 : 34,
+        width: compact ? 46 : 48,
+        height: compact ? 32 : 34,
         borderRadius: 5,
         background: 'linear-gradient(135deg, #f5a623 0%, #ffd270 60%, #f5a623 100%)',
-        marginTop: compact ? 18 : 24,
+        marginTop: compact ? 22 : 24,
         position: 'relative',
         boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
       }} />
 
       {/* Card number */}
       <div style={{
-        marginTop: compact ? 16 : 20,
+        marginTop: compact ? 20 : 20,
         display: 'flex',
         alignItems: 'center',
         gap: 8,
         position: 'relative',
       }}>
-        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: compact ? 12 : 14, letterSpacing: '0.1em' }}>●●●●</span>
-        <span style={{ color: '#fff', fontWeight: 700, fontSize: compact ? 14 : 17, letterSpacing: '0.04em' }}>1833</span>
+        <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: compact ? 14 : 14, letterSpacing: '0.12em' }}>●●●●</span>
+        <span style={{ color: '#fff', fontWeight: 700, fontSize: compact ? 16 : 17, letterSpacing: '0.06em' }}>1833</span>
       </div>
     </div>
   );

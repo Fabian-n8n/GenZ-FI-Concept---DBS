@@ -9,6 +9,64 @@ import CatIcon from '@/components/primitives/CatIcon';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { DBSCard } from '../page';
 
+// Reused from hold/page — card stack at bottom
+function CardStack() {
+  return (
+    <div style={{
+      position: 'absolute', bottom: 0, left: 0, right: 0,
+      height: 72,
+      pointerEvents: 'none',
+      zIndex: 0,
+    }}>
+      <div style={{
+        position: 'absolute', bottom: 0, left: 14, right: 14, height: 56,
+        borderRadius: '14px 14px 0 0',
+        background: 'linear-gradient(135deg, #1b2a3a 0%, #243b55 100%)',
+        display: 'flex', alignItems: 'flex-start',
+        padding: '11px 16px',
+      }}>
+        <span style={{ fontSize: 11, fontWeight: 800, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.03em' }}>HSBC</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>TravelOne</span>
+      </div>
+      <div style={{
+        position: 'absolute', bottom: 18, left: 14, right: 14, height: 56,
+        borderRadius: '14px 14px 0 0',
+        background: 'linear-gradient(135deg, #1a3060 0%, #0e1f4a 100%)',
+        display: 'flex', alignItems: 'flex-start',
+        padding: '11px 16px',
+      }}>
+        <span style={{ fontSize: 11, fontWeight: 800, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.03em' }}>DBS</span>
+        <span style={{ marginLeft: 6, fontSize: 10, color: 'rgba(255,255,255,0.38)' }}>Debit</span>
+        <span style={{ marginLeft: 'auto', fontSize: 10, color: 'rgba(255,255,255,0.32)' }}>VISA</span>
+      </div>
+    </div>
+  );
+}
+
+// iOS-style blue circle checkmark — matches real Apple Pay Done screen (#007AFF)
+function DoneCheck({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        width: 84, height: 84,
+        borderRadius: '50%',
+        background: 'none',
+        border: '3px solid #007AFF',
+        display: 'grid', placeItems: 'center',
+        cursor: 'pointer',
+        flexShrink: 0,
+      }}
+      aria-label="Done"
+    >
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
+        stroke="#007AFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 23l10 10L36 11" />
+      </svg>
+    </button>
+  );
+}
+
 function CategoryPicker({ title, subtitle, options, selected, onPick }) {
   return (
     <div>
@@ -60,33 +118,41 @@ function DoneContent() {
   }
 
   return (
-    <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0, position: 'relative' }}>
-      {/* DBS card at top — compact with padding */}
-      <div style={{ padding: 'calc(env(safe-area-inset-top) + 20px) 20px 0' }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      height: '100dvh',
+      background: '#000',         // pure black — matches real iOS Apple Pay
+      overflow: 'hidden',
+      position: 'relative',
+    }}>
+      {/* DBS card — same position as Hold */}
+      <div style={{ padding: 'calc(env(safe-area-inset-top) + 16px) 16px 0', flexShrink: 0 }}>
         <DBSCard compact />
       </div>
 
-      {/* Green ✓ check + Done centered — matches Claude Design reference */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-        <button
-          onClick={() => router.push('/categorise')}
-          style={{
-            width: 80, height: 80,
-            borderRadius: '50%',
-            background: '#1ca65b',
-            border: 'none',
-            display: 'grid', placeItems: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 0 0 6px rgba(28,166,91,0.2)',
-          }}
-          aria-label="Done"
-        >
-          <svg width="38" height="38" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round">
-            <path d="M8 20l10 10L34 10" />
-          </svg>
-        </button>
-        <div style={{ fontSize: 17, fontWeight: 700, color: '#fff' }}>Done</div>
+      {/* Blue checkmark + "Done" — centered, clears card stack */}
+      <div style={{
+        flex: 1,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        gap: 16,
+        paddingBottom: 80,
+        zIndex: 1,
+      }}>
+        <DoneCheck onClick={() => router.push('/categorise')} />
+        <div style={{
+          fontSize: 18, fontWeight: 600,
+          color: 'rgba(255,255,255,0.75)',
+          letterSpacing: '-0.2px',
+        }}>
+          Done
+        </div>
       </div>
+
+      {/* Card stack peeking from bottom */}
+      <CardStack />
 
       {/* Categorisation notification banner */}
       {showBanner && !overlay && (
@@ -104,7 +170,7 @@ function DoneContent() {
         <Drawer onClose={() => { setOverlay(null); setShowBanner(true); }}>
           <CategoryPicker
             title="Help us categorise this"
-            subtitle="We couldn't match this merchant. Pick a category to continue."
+            subtitle="We couldn't match this merchant. Pick a category."
             options={PICK_OPTIONS}
             selected={cat}
             onPick={(c) => { setCat(c); setCategorised(true); setChanged(true); setOverlay(null); setShowBanner(true); }}
@@ -129,7 +195,7 @@ function DoneContent() {
 
 export default function ApplePayDonePage() {
   return (
-    <Suspense fallback={<div className="screen" style={{ background: '#000' }} />}>
+    <Suspense fallback={<div style={{ width: '100%', height: '100dvh', background: '#000' }} />}>
       <DoneContent />
     </Suspense>
   );
