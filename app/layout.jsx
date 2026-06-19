@@ -1,5 +1,6 @@
 import './globals.css';
 import RouteTransition from '@/components/shell/RouteTransition';
+import PasswordGate from '@/components/shell/PasswordGate';
 
 export const metadata = {
   title: 'DBS Concept',
@@ -30,7 +31,9 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body style={{ background: 'var(--color-bg)', position: 'relative' }}>
-        <RouteTransition>{children}</RouteTransition>
+        <PasswordGate>
+          <RouteTransition>{children}</RouteTransition>
+        </PasswordGate>
       </body>
     </html>
   );

@@ -57,7 +57,7 @@ export default function DbsLogin({ onClose, onLogin }) {
             alt="DBS"
             style={{ width: 30, height: 30, display: 'block', objectFit: 'contain' }}
           />
-          <span style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.3px' }}>DBS</span>
+          <span style={{ fontSize: 22, fontWeight: 700, color: '#fff', letterSpacing: '0.5px', fontFamily: "Georgia, 'Times New Roman', 'Noto Serif', serif" }}>DBS</span>
         </div>
 
         <span />
