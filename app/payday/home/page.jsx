@@ -28,10 +28,8 @@ function HomeContent() {
   const savings = fw.lockAmtNum;
   const available = locked ? fmtSGD(INCOME_NUM - savings) : fmtSGD(INCOME_NUM);
 
-  const lockSegs = [
-    { pct: 76, color: 'var(--dbs-red-500)' },
-    { pct: 24, color: 'var(--dbs-amber-500)' },
-  ];
+  // Use the framework's own segments so colours match manage + success screens
+  const lockSegs = fw.segments;
 
   const SHORTCUTS = [
     { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>, label: 'Transaction History' },
@@ -102,7 +100,7 @@ function HomeContent() {
                         </div>
                         <div style={{ fontSize: 11.5, color: 'var(--text-tertiary)', marginTop: 6 }}>{fw.name} · unlocks next payday</div>
                       </div>
-                      <Donut segments={lockSegs} size={52} thickness={8} />
+                      <Donut segments={lockSegs} size={52} thickness={6} />
                     </div>
                   </div>
                 )}
@@ -166,7 +164,7 @@ function HomeContent() {
             <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--dbs-red-50)', display: 'grid', placeItems: 'center' }}>
               <img src="/assets/logo/dbs-mark-red.png" alt="DBS" style={{ width: 28, height: 28 }} />
             </div>
-            <div className="overline" style={{ color: 'var(--color-brand)' }}>Payday plan</div>
+            <div className="eyebrow" style={{ color: 'var(--color-brand)' }}>Payday plan</div>
           </div>
           <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>Set up your payday plan</div>
           <div style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: 24 }}>

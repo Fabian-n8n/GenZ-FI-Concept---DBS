@@ -34,7 +34,7 @@ function BreakdownContent() {
 
       <div className="scroll" style={{ padding: '22px 20px 28px' }}>
         <div style={{ position: 'relative', width: 196, margin: '2px auto 6px' }}>
-          <Donut segments={segments} size={196} thickness={26} gap={3} />
+          <Donut segments={segments} size={196} thickness={16} gap={3} />
           <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center' }}>
             <button
               onClick={() => router.push('/categorise/dbs-app/edit-categories')}

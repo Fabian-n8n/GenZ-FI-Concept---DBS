@@ -30,7 +30,7 @@ function PreviewContent() {
         </div>
 
         <div style={{ padding: '0 20px' }}>
-          <div className="overline" style={{ marginBottom: 4 }}>Your monthly split</div>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>Your monthly split</div>
           {fw.rows.map(r => (
             <div key={r.name} className="alloc-row">
               <span style={{ width: 14, height: 14, borderRadius: '50%', background: r.color, flexShrink: 0, marginTop: 3 }} />

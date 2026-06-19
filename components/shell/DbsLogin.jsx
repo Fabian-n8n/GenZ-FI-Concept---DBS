@@ -10,18 +10,18 @@ export default function DbsLogin({ onClose, onLogin }) {
       flexDirection: 'column',
       width: '100%',
       height: '100dvh',
-      background: '#0a0e14',
+      background: '#0A0E1A',
       color: '#fff',
       fontFamily: 'var(--font-sans)',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Warm red-orange glow at bottom — matches real DBS app */}
+      {/* Warm orange-red radial glow — diffuse, bottom-center */}
       <div style={{
         position: 'absolute',
         bottom: 0, left: 0, right: 0,
-        height: '45%',
-        background: 'radial-gradient(ellipse 80% 60% at 50% 110%, rgba(200,60,0,0.22) 0%, transparent 70%)',
+        height: '60%',
+        background: 'radial-gradient(circle at 50% 100%, rgba(255,100,50,0.15) 0%, transparent 60%)',
         pointerEvents: 'none',
       }} />
 
@@ -75,13 +75,13 @@ export default function DbsLogin({ onClose, onLogin }) {
       }}>
         {/* Glass credential card — matches real DBS login */}
         <div style={{
-          background: 'rgba(255,255,255,0.07)',
-          border: '1px solid rgba(255,255,255,0.11)',
-          borderRadius: 13,
+          background: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 16,
           overflow: 'hidden',
-          backdropFilter: 'blur(16px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(140%)',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
         }}>
           {/* User ID */}
           <div style={{ padding: '15px 18px 6px' }}>
@@ -150,7 +150,7 @@ export default function DbsLogin({ onClose, onLogin }) {
             fontFamily: 'var(--font-sans)',
             fontSize: 16, fontWeight: 800, letterSpacing: '0.08em',
             cursor: 'pointer',
-            boxShadow: '0 4px 16px rgba(232,0,0,0.35)',
+            boxShadow: '0 4px 24px rgba(255,0,0,0.25)',
           }}
         >
           LOG IN

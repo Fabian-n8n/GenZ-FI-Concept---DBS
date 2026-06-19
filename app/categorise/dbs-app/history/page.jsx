@@ -29,7 +29,7 @@ export default function TransactionHistoryPage() {
           <ChevronDown size={20} color="var(--text-tertiary)" />
         </button>
 
-        <div className="overline" style={{ padding: '22px 20px 8px' }}>Time range</div>
+        <div className="eyebrow" style={{ padding: '22px 20px 8px' }}>Time range</div>
 
         <div style={{ background: '#fff', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
           {RANGES.map(r => (

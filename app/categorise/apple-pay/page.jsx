@@ -13,78 +13,126 @@ function XMark({ size = 26, color = '#fff' }) {
 }
 
 // DBS Multi-Currency Visa Platinum card.
-// compact=false → full-bleed on start screen (no border-radius, no side shadow)
-// compact=true  → padded variant for hold/done (iOS reference: ~35% screen height)
+// compact=false → start screen: margins applied by parent, 1.586 aspect ratio, chip + number
+// compact=true  → hold/done: taller padded card, no chip/number (those screens are locked)
 export function DBSCard({ compact = false }) {
+  if (!compact) {
+    // ── Start-screen variant: proper credit-card proportions ──
+    return (
+      <div style={{
+        width: '100%',
+        aspectRatio: '1.586',
+        borderRadius: 16,
+        background: 'linear-gradient(160deg, #2a2a2a 0%, #1c1c1c 50%, #111111 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        border: '1px solid rgba(255,255,255,0.05)',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '16px 16px 18px',
+        boxSizing: 'border-box',
+      }}>
+        {/* Diamond watermark — small, right-centre, contained */}
+        <div style={{
+          position: 'absolute',
+          right: 14,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+        }}>
+          <XMark size={110} color="rgba(255,255,255,0.28)" />
+        </div>
+
+        {/* Top row: ✦ DBS · VISA Platinum */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <XMark size={20} color="#fff" />
+            <span style={{ color: '#fff', fontWeight: 800, fontSize: 18, letterSpacing: '-0.2px' }}>DBS</span>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ color: '#fff', fontWeight: 900, fontSize: 15, letterSpacing: '0.05em' }}>VISA</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>Platinum</div>
+          </div>
+        </div>
+
+        {/* MULTI-CURRENCY */}
+        <div style={{
+          color: 'rgba(255,255,255,0.38)',
+          fontSize: 10,
+          fontWeight: 700,
+          letterSpacing: '0.16em',
+          marginTop: 6,
+          position: 'relative', zIndex: 1,
+        }}>
+          MULTI-CURRENCY
+        </div>
+
+        {/* Push chip + number to bottom */}
+        <div style={{ flex: 1 }} />
+
+        {/* Chip */}
+        <div style={{
+          width: 40, height: 28,
+          borderRadius: 4,
+          background: 'linear-gradient(135deg, #f5a623 0%, #ffd270 55%, #f5a623 100%)',
+          marginBottom: 10,
+          position: 'relative', zIndex: 1,
+          boxShadow: '0 2px 6px rgba(0,0,0,0.35)',
+        }} />
+
+        {/* Card number */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, position: 'relative', zIndex: 1 }}>
+          <span style={{ color: 'rgba(255,255,255,0.42)', fontSize: 13, letterSpacing: '0.12em' }}>●●●●</span>
+          <span style={{ color: '#fff', fontWeight: 700, fontSize: 15, letterSpacing: '0.06em' }}>1833</span>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Hold/done compact variant (unchanged) ──
   return (
     <div style={{
       width: '100%',
-      borderRadius: compact ? 18 : 0,
-      background: 'linear-gradient(155deg, #222222 0%, #1a1a1a 40%, #111111 100%)',
-      // Compact: generous vertical padding so card fills ~35% of screen height
-      padding: compact ? '26px 24px 30px' : '28px 28px 32px',
+      borderRadius: 18,
+      background: 'linear-gradient(160deg, #2a2a2a 0%, #1c1c1c 45%, #111111 100%)',
+      padding: '22px 22px 26px',
       position: 'relative',
       overflow: 'hidden',
-      boxShadow: compact ? '0 20px 48px rgba(0,0,0,0.7)' : 'none',
+      boxShadow: '0 20px 48px rgba(0,0,0,0.7)',
     }}>
-      {/* Large star watermark — anchored to right edge */}
       <div style={{
         position: 'absolute',
-        right: compact ? -26 : -28,
-        top: '50%',
+        right: -30,
+        top: '52%',
         transform: 'translateY(-50%)',
         pointerEvents: 'none',
-        opacity: 0.95,
       }}>
-        <XMark size={compact ? 160 : 180} color="rgba(255,255,255,0.93)" />
+        <XMark size={170} color="rgba(255,255,255,0.82)" />
       </div>
 
-      {/* Top row: DBS logo left · VISA Platinum right */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <XMark size={compact ? 26 : 30} color="#fff" />
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 20 : 22, letterSpacing: '-0.3px' }}>DBS</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+          <XMark size={22} color="#fff" />
+          <span style={{ color: '#fff', fontWeight: 800, fontSize: 18, letterSpacing: '-0.2px' }}>DBS</span>
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ color: '#fff', fontWeight: 800, fontSize: compact ? 13 : 14, letterSpacing: '0.04em' }}>VISA</div>
-          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: compact ? 11 : 12 }}>Platinum</div>
+          <div style={{ color: '#fff', fontWeight: 900, fontSize: 15, letterSpacing: '0.05em' }}>VISA</div>
+          <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11 }}>Platinum</div>
         </div>
       </div>
 
-      {/* Card type */}
       <div style={{
-        color: 'rgba(255,255,255,0.45)',
-        fontSize: compact ? 10.5 : 12,
+        color: 'rgba(255,255,255,0.4)',
+        fontSize: 10,
         fontWeight: 700,
-        letterSpacing: '0.14em',
-        marginTop: 8,
-        position: 'relative',
+        letterSpacing: '0.16em',
+        marginTop: 6,
+        position: 'relative', zIndex: 1,
       }}>
         MULTI-CURRENCY
       </div>
 
-      {/* Chip — larger in compact to fill the taller card */}
-      <div style={{
-        width: compact ? 46 : 48,
-        height: compact ? 32 : 34,
-        borderRadius: 5,
-        background: 'linear-gradient(135deg, #f5a623 0%, #ffd270 60%, #f5a623 100%)',
-        marginTop: compact ? 22 : 24,
-        position: 'relative',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
-      }} />
-
-      {/* Card number */}
-      <div style={{
-        marginTop: compact ? 20 : 20,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        position: 'relative',
-      }}>
-        <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: compact ? 14 : 14, letterSpacing: '0.12em' }}>●●●●</span>
-        <span style={{ color: '#fff', fontWeight: 700, fontSize: compact ? 16 : 17, letterSpacing: '0.06em' }}>1833</span>
-      </div>
+      <div style={{ height: 90 }} />
     </div>
   );
 }
@@ -93,55 +141,38 @@ function ApplePayStartContent() {
   const router = useRouter();
   const params = useSearchParams();
   const merchant = params.get('merchant') || 'Hai Di Lao';
-  const amount = params.get('amount') || 'S$31.50';
 
   return (
     <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0 }}>
-      {/* Apple Pay header — with horizontal padding */}
+      {/* DBS card — stretch to full width, credit-card aspect ratio */}
       <div style={{
-        padding: 'calc(env(safe-area-inset-top) + 18px) 22px 16px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
+        alignSelf: 'stretch',
+        padding: 'calc(env(safe-area-inset-top) + 20px) 18px 0',
         flexShrink: 0,
       }}>
-        <div style={{
-          width: 36, height: 36, borderRadius: 9,
-          background: '#000',
-          border: '1px solid rgba(255,255,255,0.15)',
-          display: 'grid', placeItems: 'center', flexShrink: 0,
-        }}>
-          <XMark size={22} color="#FF0000" />
-        </div>
-        <div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#fff' }}>Apple Pay</div>
-          <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.45)' }}>Ready to authenticate</div>
-        </div>
+        <DBSCard />
       </div>
 
-      {/* DBS black card — full bleed, no side padding */}
-      <DBSCard />
-
-      {/* Bottom: merchant + face ID + amount */}
+      {/* Centred: merchant name + Face ID button */}
       <div style={{
         flex: 1,
+        alignSelf: 'stretch',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 22px calc(36px + env(safe-area-inset-bottom))',
-        gap: 20,
+        justifyContent: 'center',
+        gap: 28,
+        padding: '0 22px calc(env(safe-area-inset-bottom) + 24px)',
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 23, fontWeight: 800, color: '#fff', letterSpacing: '-0.4px' }}>{merchant}</div>
-          <div style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>Double-click the side button to pay</div>
+          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginTop: 5 }}>Double-click the side button to pay</div>
         </div>
 
-        {/* Face ID circle button */}
         <button
           onClick={() => router.push('/categorise/apple-pay/biometric?merchant=' + encodeURIComponent(merchant))}
           style={{
-            width: 74, height: 74, borderRadius: '50%',
+            width: 76, height: 76, borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',
             border: '1px solid rgba(255,255,255,0.22)',
             display: 'grid', placeItems: 'center', cursor: 'pointer',
@@ -155,24 +186,6 @@ function ApplePayStartContent() {
             <path d="M12 16v1M26 16v1M14 24s2 2.5 5 2.5 5-2.5 5-2.5M19 16v4h-2"/>
           </svg>
         </button>
-
-        {/* Amount + method */}
-        <div style={{
-          width: '100%', borderRadius: 14,
-          background: 'rgba(255,255,255,0.07)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          padding: '16px 20px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}>
-          <div>
-            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>Amount</div>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#fff', letterSpacing: '-0.6px', fontVariantNumeric: 'tabular-nums', marginTop: 2 }}>{amount}</div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>Method</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginTop: 2 }}>Apple Pay</div>
-          </div>
-        </div>
       </div>
     </div>
   );

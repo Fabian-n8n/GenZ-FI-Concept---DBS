@@ -82,7 +82,7 @@ function SuccessContent() {
       </div>
 
       <div className="scroll" style={{ padding: '24px 20px' }}>
-        <div className="overline" style={{ marginBottom: 8 }}>What this means</div>
+        <div className="eyebrow" style={{ marginTop: 8, marginBottom: 10 }}>What this means</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {cfg.bullets.map(([icon, text]) => {
             const IconCmp = {

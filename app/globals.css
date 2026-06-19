@@ -311,13 +311,15 @@ html, body {
   border-bottom-color: var(--color-brand);
 }
 
-/* ── Overline / section label ── */
-.overline {
+/* ── Eyebrow / section label ── */
+/* Renamed from .overline to avoid Tailwind's text-decoration:overline collision */
+.eyebrow {
   font-size: var(--size-micro);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
+  display: block;
 }
 
 /* ── Chip / badge ── */

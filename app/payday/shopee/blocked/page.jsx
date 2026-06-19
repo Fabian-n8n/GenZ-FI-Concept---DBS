@@ -66,7 +66,7 @@ export default function ShopeeBlockedPage() {
             <div style={{ width: 44, height: 44, borderRadius: 10, background: 'var(--dbs-red-50)', color: 'var(--color-brand)', display: 'grid', placeItems: 'center' }}>
               🔓
             </div>
-            <div className="overline" style={{ color: 'var(--color-brand)' }}>Payday Lock</div>
+            <div className="eyebrow" style={{ color: 'var(--color-brand)' }}>Payday Lock</div>
           </div>
           <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 8 }}>Unlock spending for this purchase?</div>
           <div style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: 24 }}>

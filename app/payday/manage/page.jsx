@@ -115,9 +115,14 @@ function ManageContent() {
   const fw     = fwById(fwId);
   const [showPause, setShowPause] = useState(false);
 
-  function handleToggle() {
-    // Always open the pause drawer when toggling off
-    setShowPause(true);
+  // Switch calls onChange(!on) — turningOn = true means user is switching lock ON.
+  // Branch on the argument, not the URL param (which can be stale or missing).
+  function handleToggle(turningOn) {
+    if (turningOn) {
+      router.push(`/payday/faceid?next=success&variant=locked&fw=${fwId}`);
+    } else {
+      setShowPause(true);
+    }
   }
 
   function handlePauseContinue(sel) {
@@ -142,14 +147,14 @@ function ManageContent() {
         </div>
 
         {/* Active framework */}
-        <div className="overline" style={{ margin: '24px 0 10px' }}>Active framework</div>
+        <div className="eyebrow" style={{ marginTop: 28, marginBottom: 10 }}>Active framework</div>
         <div className="card" style={{ padding: 16, display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: 15.5, fontWeight: 700 }}>{fw.tag} · {fw.name}</div>
             <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', marginTop: 3 }}>{fw.split}</div>
           </div>
           <button
-            onClick={() => router.push(`/payday/faceid?next=frameworks&mode=change&current=${fwId}`)}
+            onClick={() => router.push(`/payday/frameworks?mode=change&current=${fwId}`)}
             style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-brand)', fontWeight: 700, fontSize: 14, fontFamily: 'var(--font-sans)', display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap', flexShrink: 0 }}
           >
             Change <ChevronRight size={15} />
