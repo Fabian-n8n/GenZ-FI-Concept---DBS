@@ -69,14 +69,13 @@ export default function PasswordGate({ children }) {
         alignItems: 'center', justifyContent: 'center',
         width: '100%', maxWidth: 360, padding: '0 28px',
       }}>
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 36 }}>
+        {/* Official DBS lockup — real logomark + wordmark (vector) */}
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 36 }}>
           <img
-            src="/assets/logo/dbs-mark-red.png"
+            src="/assets/logo/dbs-lockup-white.svg"
             alt="DBS"
-            style={{ width: 32, height: 32, display: 'block', objectFit: 'contain' }}
+            style={{ height: 34, width: 'auto', display: 'block' }}
           />
-          <span style={{ fontSize: 24, fontWeight: 700, color: '#fff', letterSpacing: '0.5px', fontFamily: "Georgia, 'Times New Roman', 'Noto Serif', serif" }}>DBS</span>
         </div>
 
         <div style={{ fontSize: 19, fontWeight: 700, marginBottom: 6 }}>Enter access code</div>

@@ -50,14 +50,13 @@ export default function DbsLogin({ onClose, onLogin }) {
           <X size={22} />
         </button>
 
-        {/* Official DBS mark + wordmark */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9 }}>
+        {/* Official DBS lockup — real logomark + wordmark (vector) */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img
-            src="/assets/logo/dbs-mark-red.png"
+            src="/assets/logo/dbs-lockup-white.svg"
             alt="DBS"
-            style={{ width: 30, height: 30, display: 'block', objectFit: 'contain' }}
+            style={{ height: 30, width: 'auto', display: 'block' }}
           />
-          <span style={{ fontSize: 22, fontWeight: 700, color: '#fff', letterSpacing: '0.5px', fontFamily: "Georgia, 'Times New Roman', 'Noto Serif', serif" }}>DBS</span>
         </div>
 
         <span />
