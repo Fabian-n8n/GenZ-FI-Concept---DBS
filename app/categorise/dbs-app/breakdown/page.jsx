@@ -4,10 +4,114 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import Donut from '@/components/primitives/Donut';
 import CatIcon from '@/components/primitives/CatIcon';
-import { X, Search, Pencil, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Search, Pencil, ChevronRight, ArrowUp, ArrowDown, Lock, Sparkles } from 'lucide-react';
 import { CATS, BREAKDOWN_SEGS } from '@/lib/categories';
-import { TXN_GROUPS, RANGE_DAYS, fmtMoney } from '@/lib/transactions';
+import { TXN_GROUPS, RANGE_DAYS, fmtMoney, CATEGORY_SPEND, SPENDING_BUDGET } from '@/lib/transactions';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
+
+function fmtSGD(n) {
+  return 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function SpendingInsight({ router }) {
+  const totalSpent = CATEGORY_SPEND.reduce((s, c) => s + c.spent, 0);
+  const usedPct = Math.round((totalSpent / SPENDING_BUDGET) * 100);
+  const left = Math.max(0, SPENDING_BUDGET - totalSpent);
+
+  // Headline for the "so what" callout — surface the biggest spending *increase*
+  // (most actionable nudge); fall back to the biggest absolute mover if nothing rose.
+  const movers = CATEGORY_SPEND.map((c) => ({
+    ...c,
+    delta: c.last ? Math.round(((c.spent - c.last) / c.last) * 100) : 0,
+    dollarDelta: c.spent - (c.last ?? c.spent),
+  }));
+  const rising = movers.filter((c) => c.dollarDelta > 0).sort((a, b) => b.dollarDelta - a.dollarDelta);
+  const top = rising[0] || [...movers].sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))[0];
+
+  return (
+    <div style={{ marginTop: 6 }}>
+      {/* "So what" callout — the takeaway, in plain language */}
+      <div style={{
+        display: 'flex', gap: 12, alignItems: 'flex-start',
+        background: 'linear-gradient(135deg, #FFF4F1, #FFF9F3)',
+        border: '1px solid var(--dbs-red-100)', borderRadius: 'var(--radius-tile)',
+        padding: '14px 15px', marginBottom: 16,
+      }}>
+        <div style={{ width: 34, height: 34, borderRadius: 9, background: '#fff', display: 'grid', placeItems: 'center', color: 'var(--color-brand)', flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
+          <Sparkles size={18} />
+        </div>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.4 }}>
+            You&rsquo;ve used {usedPct}% of your spending budget — {fmtSGD(left)} left before payday.
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4, lineHeight: 1.45 }}>
+            {top.cat} is {Math.abs(top.delta)}% {top.delta >= 0 ? 'higher' : 'lower'} than last month{top.delta >= 0 ? ' — keep an eye on it.' : ' — nice work.'}
+          </div>
+        </div>
+      </div>
+
+      {/* Spending vs locked budget */}
+      <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-tile)', boxShadow: 'var(--shadow-card)', padding: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+          <div>
+            <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--text-primary)' }}>Spending this cycle</div>
+            <button
+              onClick={() => router.push('/payday/manage?fw=warren&locked=1')}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 5, background: 'var(--dbs-gray-100)', border: 'none', borderRadius: 999, padding: '3px 9px', fontSize: 11, fontWeight: 700, color: 'var(--text-secondary)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}
+            >
+              <Lock size={11} /> from Payday Lock
+            </button>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: 19, fontWeight: 800, color: 'var(--text-primary)', fontVariantNumeric: 'tabular-nums', lineHeight: 1.15 }}>{fmtSGD(totalSpent)}</div>
+            <div style={{ fontSize: 12, color: 'var(--text-tertiary)', fontVariantNumeric: 'tabular-nums', marginTop: 1 }}>of {fmtSGD(SPENDING_BUDGET)}</div>
+          </div>
+        </div>
+
+        {/* Stacked bar — every category in its own colour, remainder is "left" */}
+        <div style={{ display: 'flex', gap: 2, height: 14, borderRadius: 7, overflow: 'hidden', background: 'var(--dbs-gray-100)', marginTop: 14 }}>
+          {CATEGORY_SPEND.map((c) => (
+            <div key={c.cat} title={`${c.cat} ${fmtSGD(c.spent)}`} style={{ width: `${(c.spent / SPENDING_BUDGET) * 100}%`, background: CATS[c.cat]?.color }} />
+          ))}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 12, color: 'var(--text-secondary)' }}>
+          <span><strong style={{ color: 'var(--text-primary)' }}>{usedPct}%</strong> used</span>
+          <span><strong style={{ color: 'var(--color-positive)' }}>{fmtSGD(left)}</strong> left</span>
+        </div>
+
+        {/* Per-category rows with month-on-month comparison */}
+        <div style={{ marginTop: 4 }}>
+          {CATEGORY_SPEND.map((c) => {
+            const delta = c.last ? Math.round(((c.spent - c.last) / c.last) * 100) : 0;
+            const up = delta > 0;
+            const flat = delta === 0;
+            const share = Math.round((c.spent / totalSpent) * 100);
+            return (
+              <div key={c.cat} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '11px 0', borderTop: '1px solid var(--color-border)' }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: CATS[c.cat]?.color, flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.cat}</div>
+                  <div style={{ fontSize: 11.5, color: 'var(--text-tertiary)', marginTop: 1 }}>{share}% of spend</div>
+                </div>
+                <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontVariantNumeric: 'tabular-nums' }}>{fmtSGD(c.spent)}</div>
+                  <span style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 2, marginTop: 2,
+                    fontSize: 11, fontWeight: 700, fontVariantNumeric: 'tabular-nums',
+                    color: flat ? 'var(--text-tertiary)' : up ? 'var(--color-brand)' : 'var(--color-positive)',
+                  }}>
+                    {!flat && (up ? <ArrowUp size={11} strokeWidth={2.6} /> : <ArrowDown size={11} strokeWidth={2.6} />)}
+                    {flat ? 'No change' : `${Math.abs(delta)}% vs last mo.`}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function BreakdownContent() {
   const router = useRouter();
@@ -22,7 +126,7 @@ function BreakdownContent() {
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', padding: 'env(safe-area-inset-top) 8px 0', minHeight: 'calc(52px + env(safe-area-inset-top))', background: '#fff', flexShrink: 0 }}>
-        <button className="icon-btn" onClick={() => { setNextRouteDirection(-1); router.push('/categorise/dbs-app/home'); }}><X size={22} /></button>
+        <button className="icon-btn" aria-label="Back" onClick={() => { setNextRouteDirection(-1); router.push(`/categorise/dbs-app/history`); }}><ArrowLeft size={22} /></button>
         <span />
         <button className="icon-btn"><Search size={21} /></button>
       </div>
@@ -52,6 +156,10 @@ function BreakdownContent() {
             </span>
           ))}
         </div>
+
+        <SpendingInsight router={router} />
+
+        <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--text-primary)', padding: '24px 0 0' }}>Transactions</div>
 
         {groups.map((g) => (
             <div key={g.date}>
