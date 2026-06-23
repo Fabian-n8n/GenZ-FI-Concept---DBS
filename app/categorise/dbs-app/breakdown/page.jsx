@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import Donut from '@/components/primitives/Donut';
 import CatIcon from '@/components/primitives/CatIcon';
 import Drawer from '@/components/primitives/Drawer';
-import { ArrowLeft, Search, ArrowUp, ArrowDown, Lock, Pencil } from 'lucide-react';
+import { ArrowLeft, ArrowUp, ArrowDown, Lock, Pencil } from 'lucide-react';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { BREAKDOWN_TXNS, LAST_MONTH, SPENDING_BUDGET, fmtMoney } from '@/lib/transactions';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
@@ -91,7 +91,7 @@ function BreakdownContent() {
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', padding: 'env(safe-area-inset-top) 8px 0', minHeight: 'calc(52px + env(safe-area-inset-top))', background: '#fff', flexShrink: 0 }}>
         <button className="icon-btn" aria-label="Back" onClick={() => { setNextRouteDirection(-1); router.push(`/categorise/dbs-app/history`); }}><ArrowLeft size={22} /></button>
         <span />
-        <button className="icon-btn"><Search size={21} /></button>
+        <span />
       </div>
 
       <div style={{ textAlign: 'center', padding: '0 20px 14px', flexShrink: 0 }}>
