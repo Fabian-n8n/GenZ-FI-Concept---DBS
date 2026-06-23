@@ -280,7 +280,7 @@ html, body {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-brand);
+  color: var(--text-primary);
   border-radius: 50%;
   flex-shrink: 0;
 }

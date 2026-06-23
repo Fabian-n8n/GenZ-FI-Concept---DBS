@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import Donut from '@/components/primitives/Donut';
 import CatIcon from '@/components/primitives/CatIcon';
 import Drawer from '@/components/primitives/Drawer';
-import { ArrowLeft, ArrowUp, ArrowDown, Lock, Pencil } from 'lucide-react';
+import { ChevronLeft, ArrowUp, ArrowDown, Lock, Pencil } from 'lucide-react';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { BREAKDOWN_TXNS, LAST_MONTH, SPENDING_BUDGET, fmtMoney } from '@/lib/transactions';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
@@ -89,7 +89,7 @@ function BreakdownContent() {
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', padding: 'env(safe-area-inset-top) 8px 0', minHeight: 'calc(52px + env(safe-area-inset-top))', background: '#fff', flexShrink: 0 }}>
-        <button className="icon-btn" aria-label="Back" onClick={() => { setNextRouteDirection(-1); router.push(`/categorise/dbs-app/history`); }}><ArrowLeft size={22} /></button>
+        <button className="icon-btn" aria-label="Back" onClick={() => { setNextRouteDirection(-1); router.push(`/categorise/dbs-app/history`); }}><ChevronLeft size={26} /></button>
         <span />
         <span />
       </div>
