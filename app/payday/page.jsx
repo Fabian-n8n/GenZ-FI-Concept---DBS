@@ -43,8 +43,8 @@ export default function LockScreen() {
           <div style={{ fontSize: 98, fontWeight: 200, letterSpacing: '-5px', lineHeight: 0.95 }}>9:27</div>
         </div>
 
-        {/* iOS liquid-glass notification */}
-        <div style={{ padding: '0 14px', marginTop: 'auto', paddingBottom: 28 }}>
+        {/* iOS liquid-glass notification — sits just below the clock */}
+        <div style={{ padding: '24px 14px 0' }}>
           <Link href="/payday/login" style={{ textDecoration: 'none' }}>
             <div style={{
               /* iOS frosted glass */
@@ -96,10 +96,6 @@ export default function LockScreen() {
               </div>
             </div>
           </Link>
-
-          <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', fontSize: 13, marginTop: 18, fontWeight: 500, letterSpacing: '0.01em' }}>
-            Tap the notification to begin →
-          </div>
         </div>
       </div>
     </div>

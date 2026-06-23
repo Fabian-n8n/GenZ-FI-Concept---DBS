@@ -3,7 +3,7 @@
 // Matches real DBS iOS login: dark bg, glass card, warm glow, official logo.
 import { X } from 'lucide-react';
 
-export default function DbsLogin({ onClose, onLogin }) {
+export default function DbsLogin({ onClose, onLogin, topSlot }) {
   return (
     <div style={{
       display: 'flex',
@@ -72,6 +72,8 @@ export default function DbsLogin({ onClose, onLogin }) {
         position: 'relative',
         zIndex: 1,
       }}>
+        {topSlot}
+
         {/* Glass credential card — matches real DBS login */}
         <div style={{
           background: 'rgba(255,255,255,0.05)',

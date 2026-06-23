@@ -68,7 +68,7 @@ function NFCIcon() {
 function HoldContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'Hai Di Lao';
+  const merchant = params.get('merchant') || 'SCARLETT STORE';
 
   useEffect(() => {
     const t = setTimeout(() => router.push('/categorise/apple-pay/done?merchant=' + encodeURIComponent(merchant)), 1600);

@@ -2,17 +2,19 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BottomNav from '@/components/shell/BottomNav';
-import { Bell, Eye, History, ArrowRightLeft, FileText, CreditCard, BarChart2 } from 'lucide-react';
+import Insights from '@/components/shell/Insights';
+import { Bell, Eye, Settings, FileSearch, ArrowLeftRight, ReceiptText, CreditCard, FileText } from 'lucide-react';
 
 export default function CatHomeScreen() {
   const router = useRouter();
   const [tab, setTab] = useState('accounts');
 
   const shortcuts = [
-    { icon: <History size={26} />, label: 'Transaction History', onClick: () => router.push('/categorise/dbs-app/history') },
-    { icon: <ArrowRightLeft size={26} />, label: 'Transfer money' },
-    { icon: <FileText size={26} />, label: 'Pay bills' },
-    { icon: <CreditCard size={26} />, label: 'Pay card bill' },
+    { Icon: FileSearch,    label: 'Transaction History', onClick: () => router.push('/categorise/dbs-app/history') },
+    { Icon: ArrowLeftRight, label: 'Transfer Money' },
+    { Icon: ReceiptText,   label: 'Pay Bills' },
+    { Icon: CreditCard,    label: 'Pay Credit Card Bill' },
+    { Icon: FileText,      label: 'eDocuments' },
   ];
 
   return (
@@ -32,12 +34,15 @@ export default function CatHomeScreen() {
 
       <div className="scroll" style={{ marginTop: -12 }}>
         <div style={{ background: '#fff', borderRadius: '16px 16px 0 0', paddingTop: 18, minHeight: '100%' }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', padding: '0 20px 12px' }}>Smart Shortcuts</div>
-          <div className="shortcuts" style={{ padding: '0 20px 6px', justifyContent: 'space-between', overflowX: 'visible' }}>
-            {shortcuts.map(s => (
-              <div key={s.label} className="shortcut" onClick={s.onClick} style={{ cursor: s.onClick ? 'pointer' : 'default' }}>
-                <span className="shortcut__icon">{s.icon}</span>
-                <span className="shortcut__label">{s.label}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px 14px' }}>
+            <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Smart Shortcuts</span>
+            <Settings size={17} color="var(--color-brand)" />
+          </div>
+          <div className="shortcuts">
+            {shortcuts.map(({ Icon, label, onClick }) => (
+              <div key={label} className="shortcut" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+                <span className="shortcut__icon"><Icon size={24} strokeWidth={1.8} /></span>
+                <span className="shortcut__label">{label}</span>
               </div>
             ))}
           </div>
@@ -73,15 +78,7 @@ export default function CatHomeScreen() {
                 </div>
               </>
             ) : (
-              <div className="card" style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'center', marginTop: 4 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 4, background: 'var(--dbs-red-50)', display: 'grid', placeItems: 'center', color: 'var(--color-brand)', flexShrink: 0 }}>
-                  <BarChart2 size={22} />
-                </div>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 700 }}>See where your money goes</div>
-                  <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Transactions are auto-categorised for you.</div>
-                </div>
-              </div>
+              <Insights />
             )}
           </div>
         </div>

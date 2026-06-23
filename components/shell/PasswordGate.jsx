@@ -3,12 +3,14 @@
 // Keeps casual visitors out — NOT real security (code ships to the browser).
 // Access code: 0000. Unlock persists for the browser session.
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Delete } from 'lucide-react';
 
 const CODE = '0000';
 const KEY = 'genzfi-unlocked';
 
 export default function PasswordGate({ children }) {
+  const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
   const [pin, setPin] = useState('');
@@ -21,6 +23,10 @@ export default function PasswordGate({ children }) {
     } catch {}
     setReady(true);
   }, []);
+
+  if (pathname?.startsWith('/prototype/frame-607')) {
+    return children;
+  }
 
   function press(d) {
     if (pin.length >= 4) return;

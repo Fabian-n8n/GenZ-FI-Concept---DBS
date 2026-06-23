@@ -10,6 +10,7 @@ function TheoryContent() {
   const params = useSearchParams();
   const fwId = params.get('fw') || 'warren';
   const mode = params.get('mode') || 'setup';
+  const readonly = params.get('readonly') === '1';
   const fw = fwById(fwId);
 
   return (
@@ -44,12 +45,14 @@ function TheoryContent() {
         </p>
       </div>
 
-      <div className="screen-footer screen-footer--plain" style={{ padding: '12px 20px calc(12px + env(safe-area-inset-bottom))' }}>
-        <button className="btn-primary"
-          onClick={() => router.push(`/payday/frameworks/preview?fw=${fwId}&mode=${mode}`)}>
-          {mode === 'change' ? `Switch to ${fw.name}` : `Select ${fw.name} framework`}
-        </button>
-      </div>
+      {!readonly && (
+        <div className="screen-footer screen-footer--plain" style={{ padding: '12px 20px calc(12px + env(safe-area-inset-bottom))' }}>
+          <button className="btn-primary"
+            onClick={() => router.push(`/payday/frameworks/preview?fw=${fwId}&mode=${mode}`)}>
+            {mode === 'change' ? `Switch to ${fw.name}` : `Select ${fw.name} framework`}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

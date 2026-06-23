@@ -69,11 +69,6 @@ export default function HomePage() {
               <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>
                 Salary notification → DBS login → Framework selection → Savings lock → Manage & opt-out
               </div>
-              <div style={{ marginTop: 14, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {['Lock screen', 'Login', 'Frameworks', 'Lock success', 'Shopee blocked', 'Manage'].map(s => (
-                  <span key={s} style={{ fontSize: 11.5, background: 'rgba(255,0,0,0.15)', color: 'rgba(255,80,80,0.9)', borderRadius: 4, padding: '3px 8px', fontWeight: 600 }}>{s}</span>
-                ))}
-              </div>
             </div>
           </Link>
 
@@ -98,18 +93,13 @@ export default function HomePage() {
               <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>
                 Apple Pay tap-to-pay · DBS app transaction review · Shopee in-app spend categorisation
               </div>
-              <div style={{ marginTop: 14, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {['Apple Pay', 'DBS App', 'Shopee', 'Category picker', 'Breakdown', 'Edit'].map(s => (
-                  <span key={s} style={{ fontSize: 11.5, background: 'rgba(10,110,209,0.2)', color: 'rgba(80,160,255,0.9)', borderRadius: 4, padding: '3px 8px', fontWeight: 600 }}>{s}</span>
-                ))}
-              </div>
             </div>
           </Link>
         </div>
 
         <div style={{ marginTop: 36, textAlign: 'center', fontSize: 12.5, color: 'rgba(255,255,255,0.2)', lineHeight: 1.6 }}>
           Prototype for usability testing only · Not a real banking product<br/>
-          DBS Bank © 2026
+          PSYKHE Pte Ltd © 2026
         </div>
       </div>
     </div>

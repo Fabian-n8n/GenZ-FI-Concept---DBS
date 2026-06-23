@@ -53,7 +53,6 @@ export default function CategoriseLanding() {
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--text-primary)' }}>{f.title}</div>
-                  <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 3, lineHeight: 1.45 }}>{f.sub}</div>
                 </div>
                 <svg width="18" height="18" fill="none" stroke="var(--text-tertiary)" strokeWidth="2" strokeLinecap="round"><path d="M5 9h8M10 5l4 4-4 4"/></svg>
               </div>

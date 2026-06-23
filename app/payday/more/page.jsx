@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import BottomNav from '@/components/shell/BottomNav';
-import { Bell, Search, MessageSquare } from 'lucide-react';
+import { Bell, Search, MessageSquare, Shield, ChevronRight, Pencil, RotateCcw } from 'lucide-react';
 
 // ── DBS-style outline SVG icons ──────────────────────────────────────────────
 // 26×26 viewBox 0 0 24 24, stroke 1.6, rounded caps/joins, fill none
@@ -210,6 +210,40 @@ function MoreContent() {
       </div>
 
       <div className="scroll" style={{ paddingBottom: 8 }}>
+        {/* Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 20px 14px', background: '#fff' }}>
+          <div style={{ position: 'relative', width: 56, height: 56, flexShrink: 0 }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#eef1f4', overflow: 'hidden', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)', width: 20, height: 20, borderRadius: '50%', background: '#2b3440' }} />
+              <div style={{ position: 'absolute', bottom: -4, left: '50%', transform: 'translateX(-50%)', width: 36, height: 24, borderRadius: '18px 18px 0 0', background: '#3b6fe0' }} />
+            </div>
+            <div style={{ position: 'absolute', right: -2, bottom: -2, width: 20, height: 20, borderRadius: '50%', background: '#fff', border: '1px solid var(--color-border)', display: 'grid', placeItems: 'center' }}>
+              <Pencil size={11} color="var(--text-secondary)" />
+            </div>
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.25 }}>FABIAN WONG LIANG JUN (HUANG LIANGJUN)</div>
+            <button
+              onClick={() => router.push('/payday')}
+              style={{ marginTop: 9, display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--color-brand)', color: '#fff', border: 'none', borderRadius: 999, padding: '6px 14px', fontSize: 12.5, fontWeight: 700, fontFamily: 'var(--font-sans)', cursor: 'pointer' }}
+            >
+              <RotateCcw size={13} /> LOG OUT
+            </button>
+          </div>
+        </div>
+
+        {/* Security Checkup */}
+        <button style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 14, padding: '14px 20px', background: '#fff', border: 'none', borderTop: '1px solid var(--color-border)', cursor: 'pointer', textAlign: 'left', fontFamily: 'var(--font-sans)' }}>
+          <span style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--color-border)', display: 'grid', placeItems: 'center', color: 'var(--dbs-gray-700)', flexShrink: 0 }}>
+            <Shield size={20} />
+          </span>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Security Checkup</div>
+            <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', marginTop: 1 }}>Easy ways to secure your account</div>
+          </div>
+          <ChevronRight size={18} color="var(--text-tertiary)" />
+        </button>
+
         <Section label="QUICK ACCESS">
           {QUICK_TILES.map(tile => {
             const Icon = tile.icon;

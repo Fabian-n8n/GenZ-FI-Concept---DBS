@@ -6,7 +6,7 @@ import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import Switch from '@/components/primitives/Switch';
 import Drawer from '@/components/primitives/Drawer';
-import { Check, ChevronRight, HelpCircle } from 'lucide-react';
+import { Check, ChevronRight, HelpCircle, Lock } from 'lucide-react';
 import { fwById } from '@/lib/frameworks';
 
 // Segmented-control pause drawer — matching PauseLockDrawer from the design handoff.
@@ -115,6 +115,13 @@ function ManageContent() {
   const fw     = fwById(fwId);
   const [showPause, setShowPause] = useState(false);
 
+  // Spending-so-far vs the framework's Spending budget (rows[1])
+  const fmtSGD2     = (n) => 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const spendBudget = parseFloat(fw.rows[1].amount.replace(/[^0-9.]/g, '')) || 0;
+  const spendSpent  = 546.5; // simulated spend this cycle
+  const spendPct    = spendBudget ? Math.min(100, Math.round((spendSpent / spendBudget) * 100)) : 0;
+  const spendLeft   = Math.max(0, spendBudget - spendSpent);
+
   // Switch calls onChange(!on) — turningOn = true means user is switching lock ON.
   // Branch on the argument, not the URL param (which can be stale or missing).
   function handleToggle(turningOn) {
@@ -137,13 +144,73 @@ function ManageContent() {
 
       <div className="scroll" style={{ padding: '12px 20px 24px' }}>
         {/* Locked amount card */}
-        <div className="card" style={{ padding: '22px 20px', textAlign: 'center' }}>
-          <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--text-tertiary)' }}>Currently locked</div>
-          <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.5px', fontVariantNumeric: 'tabular-nums', marginTop: 2 }}>{fw.lockAmount}</div>
-          <div style={{ margin: '16px 0 14px', display: 'flex', justifyContent: 'center' }}>
-            <Donut segments={fw.segments} size={138} />
+        <div className="card" style={{ padding: '22px 20px 20px' }}>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--text-tertiary)' }}>Currently locked</div>
+            <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.5px', fontVariantNumeric: 'tabular-nums', marginTop: 2 }}>{fw.lockAmount}</div>
+            <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', marginTop: 5, lineHeight: 1.45 }}>
+              This is your <strong style={{ color: 'var(--text-primary)' }}>Savings</strong> — the {fw.rows[0].pct} portion of your payday, moved out of reach until your next salary.
+            </div>
+            <div style={{ margin: '18px 0 16px', display: 'flex', justifyContent: 'center' }}>
+              <Donut segments={fw.segments} size={132} />
+            </div>
           </div>
-          <span className="chip chip--ok"><Check size={13} /> Active · unlocks 27 Jul 2026</span>
+
+          {/* Legend — what each colour means */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {fw.rows.map((r, i) => (
+              <div key={r.name} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 2px', borderTop: '1px solid var(--color-border)' }}>
+                <span style={{ width: 11, height: 11, borderRadius: 3, background: r.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{r.name}</span>
+                {i === 0 && (
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3, fontSize: 10.5, fontWeight: 700, color: 'var(--color-brand)', background: 'var(--dbs-red-50)', borderRadius: 4, padding: '2px 6px' }}>
+                    <Lock size={10} /> Locked
+                  </span>
+                )}
+                <span style={{ flex: 1 }} />
+                <span style={{ fontSize: 12.5, color: 'var(--text-tertiary)', fontVariantNumeric: 'tabular-nums' }}>{r.pct}</span>
+                <span style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--text-primary)', fontVariantNumeric: 'tabular-nums', minWidth: 84, textAlign: 'right' }}>{r.amount}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+            <span className="chip chip--ok"><Check size={13} /> Active · unlocks 27 Jul 2026</span>
+          </div>
+        </div>
+
+        {/* Spending so far vs budget */}
+        <div className="card" style={{ padding: 16, marginTop: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ width: 10, height: 10, borderRadius: 3, background: fw.rows[1].color, flexShrink: 0 }} />
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>Spending this cycle</span>
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+              {fmtSGD2(spendSpent)}<span style={{ color: 'var(--text-tertiary)', fontWeight: 600 }}> / {fmtSGD2(spendBudget)}</span>
+            </span>
+          </div>
+          <div style={{ height: 8, borderRadius: 999, background: 'var(--dbs-gray-100)', marginTop: 12, overflow: 'hidden' }}>
+            <div style={{ width: spendPct + '%', height: '100%', borderRadius: 999, background: fw.rows[1].color, transition: 'width 400ms var(--ease-out)' }} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 12, color: 'var(--text-tertiary)' }}>
+            <span>{spendPct}% used</span>
+            <span>{fmtSGD2(spendLeft)} left</span>
+          </div>
+        </div>
+
+        {/* What Payday Lock means + learn more */}
+        <div style={{ marginTop: 16 }}>
+          <div style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <strong style={{ color: 'var(--text-primary)' }}>What is Payday Lock?</strong> The moment your salary lands, your savings are automatically moved into a locked pocket — out of sight and out of reach until your next payday. Your spending and invest portions stay available as usual.
+          </div>
+          <button
+            className="btn-secondary"
+            style={{ marginTop: 14 }}
+            onClick={() => router.push(`/payday/frameworks/theory?fw=${fwId}&readonly=1`)}
+          >
+            Learn more about this framework
+          </button>
         </div>
 
         {/* Active framework */}

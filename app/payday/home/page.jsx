@@ -5,7 +5,8 @@ import { Suspense } from 'react';
 import BottomNav from '@/components/shell/BottomNav';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
-import { Bell, Eye, Lock, ChevronDown, ChevronRight, BarChart2, TrendingUp, Settings } from 'lucide-react';
+import { Bell, Eye, Lock, ChevronDown, ChevronRight, Settings, FileSearch, ArrowLeftRight, ReceiptText, CreditCard, FileText } from 'lucide-react';
+import Insights from '@/components/shell/Insights';
 import { fwById, INCOME_NUM } from '@/lib/frameworks';
 
 function fmtSGD(n) {
@@ -32,11 +33,11 @@ function HomeContent() {
   const lockSegs = fw.segments;
 
   const SHORTCUTS = [
-    { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>, label: 'Transaction History' },
-    { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4M15 10H5M15 10l4 4-4 4"/></svg>, label: 'Bill Payment' },
-    { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>, label: 'eStatement' },
-    { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 01-4 4H3"/></svg>, label: 'Local Transfer' },
-    { icon: <svg width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>, label: 'PayNow' },
+    { Icon: FileSearch,    label: 'Transaction History' },
+    { Icon: ArrowLeftRight, label: 'Transfer Money' },
+    { Icon: ReceiptText,   label: 'Pay Bills' },
+    { Icon: CreditCard,    label: 'Pay Credit Card Bill' },
+    { Icon: FileText,      label: 'eDocuments' },
   ];
 
   return (
@@ -61,14 +62,14 @@ function HomeContent() {
         <div style={{ background: '#fff', borderRadius: '16px 16px 0 0', paddingTop: 18, minHeight: '100%' }}>
           {/* Quick Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px 14px' }}>
-            <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Quick Links</span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Smart Shortcuts</span>
             <Settings size={17} color="var(--color-brand)" />
           </div>
           <div className="shortcuts">
-            {SHORTCUTS.map(s => (
-              <div key={s.label} className="shortcut">
-                <span className="shortcut__icon">{s.icon}</span>
-                <span className="shortcut__label">{s.label}</span>
+            {SHORTCUTS.map(({ Icon, label }) => (
+              <div key={label} className="shortcut">
+                <span className="shortcut__icon"><Icon size={24} strokeWidth={1.8} /></span>
+                <span className="shortcut__label">{label}</span>
               </div>
             ))}
           </div>
@@ -130,26 +131,7 @@ function HomeContent() {
                 ))}
               </>
             ) : (
-              <div style={{ paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div className="card" style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'center' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 4, background: 'var(--dbs-red-50)', display: 'grid', placeItems: 'center', color: 'var(--color-brand)', flexShrink: 0 }}>
-                    <BarChart2 size={22} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 15, fontWeight: 700 }}>You spent more than usual yesterday</div>
-                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>SGD 304 above your daily average.</div>
-                  </div>
-                </div>
-                <div className="card" style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'center' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 4, background: 'var(--dbs-green-50)', display: 'grid', placeItems: 'center', color: 'var(--color-positive)', flexShrink: 0 }}>
-                    <TrendingUp size={22} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 15, fontWeight: 700 }}>You're on track to save SGD 3,200</div>
-                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Your payday plan is working.</div>
-                  </div>
-                </div>
-              </div>
+              <Insights />
             )}
           </div>
         </div>

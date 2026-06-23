@@ -1,13 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import DbsLogin from '@/components/shell/DbsLogin';
+import DbsLoginFlow from '@/components/shell/DbsLoginFlow';
 
 export default function LoginPage() {
   const router = useRouter();
   return (
-    <DbsLogin
-      onClose={() => router.push('/payday')}
-      onLogin={() => router.push('/payday/faceid')}
+    <DbsLoginFlow
+      onExit={() => router.push('/payday')}
+      onComplete={() => router.push('/payday/home?setup=1')}
     />
   );
 }

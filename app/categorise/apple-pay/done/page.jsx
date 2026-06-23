@@ -97,7 +97,7 @@ function DoneContent() {
   const [overlay, setOverlay] = useState(null);
   const [showBanner, setShowBanner] = useState(false);
 
-  const merchantName = isKnown ? 'Hai Di Lao' : 'ABC PTE LTD';
+  const merchantName = isKnown ? 'SCARLETT STORE' : 'ABC PTE LTD';
 
   useEffect(() => {
     if (!isKnown && !categorised) {

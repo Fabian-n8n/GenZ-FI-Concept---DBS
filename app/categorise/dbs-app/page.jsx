@@ -1,13 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import DbsLogin from '@/components/shell/DbsLogin';
+import DbsLoginFlow from '@/components/shell/DbsLoginFlow';
 
 export default function DbsLoginPage() {
   const router = useRouter();
   return (
-    <DbsLogin
-      onClose={() => router.push('/categorise')}
-      onLogin={() => router.push('/categorise/dbs-app/biometric')}
+    <DbsLoginFlow
+      onExit={() => router.push('/categorise')}
+      onComplete={() => router.push('/categorise/dbs-app/home')}
     />
   );
 }

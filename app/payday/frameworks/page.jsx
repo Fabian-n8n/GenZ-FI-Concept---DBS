@@ -34,6 +34,17 @@ function FrameworksContent() {
                 <div className="fw-card__body">
                   <Donut segments={fw.segments} size={64} thickness={11} gap={4} />
                   <div style={{ flex: 1, minWidth: 0 }}>
+                    {fw.id === 'warren' && (
+                      <span style={{
+                        display: 'inline-block',
+                        fontSize: 10.5, fontWeight: 700, letterSpacing: '0.01em',
+                        color: 'var(--dbs-gray-700)', background: 'var(--dbs-gray-100)',
+                        border: '1px solid var(--color-border)', borderRadius: 999,
+                        padding: '3px 9px', marginBottom: 7,
+                      }}>
+                        Highly recommended for new users
+                      </span>
+                    )}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                       <span className="fw-card__name">{fw.name}</span>
                       {isCurrent && <span className="chip chip--ok" style={{ fontSize: 11, padding: '3px 8px' }}>Current</span>}

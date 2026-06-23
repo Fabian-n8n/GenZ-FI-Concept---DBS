@@ -140,7 +140,7 @@ export function DBSCard({ compact = false }) {
 function ApplePayStartContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'Hai Di Lao';
+  const merchant = params.get('merchant') || 'SCARLETT STORE';
 
   return (
     <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0 }}>
@@ -166,7 +166,6 @@ function ApplePayStartContent() {
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 23, fontWeight: 800, color: '#fff', letterSpacing: '-0.4px' }}>{merchant}</div>
-          <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginTop: 5 }}>Double-click the side button to pay</div>
         </div>
 
         <button
