@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import Donut from '@/components/primitives/Donut';
 import CatIcon from '@/components/primitives/CatIcon';
-import { ArrowLeft, Search, Pencil, ChevronRight, ArrowUp, ArrowDown, Lock, Sparkles } from 'lucide-react';
+import { ArrowLeft, Search, Pencil, ChevronRight, ArrowUp, ArrowDown, Lock } from 'lucide-react';
 import { CATS, BREAKDOWN_SEGS } from '@/lib/categories';
 import { TXN_GROUPS, RANGE_DAYS, fmtMoney, CATEGORY_SPEND, SPENDING_BUDGET } from '@/lib/transactions';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
@@ -30,24 +30,9 @@ function SpendingInsight({ router }) {
 
   return (
     <div style={{ marginTop: 6 }}>
-      {/* "So what" callout — the takeaway, in plain language */}
-      <div style={{
-        display: 'flex', gap: 12, alignItems: 'flex-start',
-        background: 'linear-gradient(135deg, #FFF4F1, #FFF9F3)',
-        border: '1px solid var(--dbs-red-100)', borderRadius: 'var(--radius-tile)',
-        padding: '14px 15px', marginBottom: 16,
-      }}>
-        <div style={{ width: 34, height: 34, borderRadius: 9, background: '#fff', display: 'grid', placeItems: 'center', color: 'var(--color-brand)', flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
-          <Sparkles size={18} />
-        </div>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.4 }}>
-            You&rsquo;ve used {usedPct}% of your spending budget — {fmtSGD(left)} left before payday.
-          </div>
-          <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4, lineHeight: 1.45 }}>
-            {top.cat} is {Math.abs(top.delta)}% {top.delta >= 0 ? 'higher' : 'lower'} than last month{top.delta >= 0 ? ' — keep an eye on it.' : ' — nice work.'}
-          </div>
-        </div>
+      {/* "So what" — a single, subtle, predictive line */}
+      <div style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-tertiary)', margin: '2px 2px 14px' }}>
+        At this rate, your <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{top.cat.toLowerCase()}</span> spending could go over budget before payday.
       </div>
 
       {/* Spending vs locked budget */}
