@@ -30,9 +30,20 @@ function SpendingInsight({ router }) {
 
   return (
     <div style={{ marginTop: 6 }}>
-      {/* "So what" — a single, subtle, predictive line */}
-      <div style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--text-tertiary)', margin: '2px 2px 14px' }}>
-        At this rate, your <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{top.cat.toLowerCase()}</span> spending could go over budget before payday.
+      {/* "So what" — a subtle, boxed, predictive note with a warning badge */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 10,
+        background: 'var(--dbs-red-50)', border: '1px solid var(--dbs-red-100)',
+        borderRadius: 'var(--radius-tile)', padding: '10px 12px', margin: '2px 0 16px',
+      }}>
+        <span style={{
+          width: 20, height: 20, borderRadius: '50%', flexShrink: 0,
+          background: 'var(--color-brand)', color: '#fff',
+          display: 'grid', placeItems: 'center', fontSize: 13, fontWeight: 800, lineHeight: 1,
+        }} aria-hidden="true">!</span>
+        <span style={{ fontSize: 12.5, lineHeight: 1.45, color: 'var(--text-secondary)' }}>
+          At this rate, your <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{top.cat.toLowerCase()}</span> spending could go over budget before payday.
+        </span>
       </div>
 
       {/* Spending vs locked budget */}
