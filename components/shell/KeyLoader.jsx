@@ -20,17 +20,23 @@ export default function KeyLoader({ size = 80, boxBg = '#34383f' }) {
         <svg width={inner} height={inner} viewBox={VB} fill="none" style={{ position: 'absolute', inset: 0 }} aria-hidden="true">
           <path d={KEY_D} fill="rgba(255,255,255,0.3)" />
         </svg>
-        {/* White fill, swept bottom→top on a loop */}
-        <svg width={inner} height={inner} viewBox={VB} fill="none" style={{ position: 'absolute', inset: 0, animation: 'keyFill 1.6s cubic-bezier(0.65,0,0.35,1) infinite' }} aria-hidden="true">
+        {/* White fill, swept diagonally bottom-left → top-right on a loop */}
+        <svg width={inner} height={inner} viewBox={VB} fill="none" style={{
+          position: 'absolute', inset: 0,
+          WebkitMaskImage: 'linear-gradient(45deg, #000 45%, transparent 60%)',
+          maskImage: 'linear-gradient(45deg, #000 45%, transparent 60%)',
+          WebkitMaskSize: '250% 250%', maskSize: '250% 250%',
+          WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+          animation: 'keyFill 2s ease-in-out infinite',
+        }} aria-hidden="true">
           <path d={KEY_D} fill="#ffffff" />
         </svg>
       </div>
       <style>{`
         @keyframes keyFill {
-          0%   { clip-path: inset(100% 0 0 0); opacity: 1; }
-          55%  { clip-path: inset(0 0 0 0);   opacity: 1; }
-          78%  { clip-path: inset(0 0 0 0);   opacity: 1; }
-          100% { clip-path: inset(0 0 0 0);   opacity: 0; }
+          0%   { -webkit-mask-position: 125% -25%; mask-position: 125% -25%; }
+          50%  { -webkit-mask-position: -25% 125%; mask-position: -25% 125%; }
+          100% { -webkit-mask-position: 125% -25%; mask-position: 125% -25%; }
         }
       `}</style>
     </div>
