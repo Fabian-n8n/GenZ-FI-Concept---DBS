@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import BottomNav from '@/components/shell/BottomNav';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
-import { Bell, Eye, Lock, ChevronDown, ChevronRight, Settings, FileSearch, ArrowLeftRight, ReceiptText, CreditCard, FileText } from 'lucide-react';
+import { Bell, Eye, Lock, Unlock, ChevronDown, ChevronRight, Settings, FileSearch, ArrowLeftRight, ReceiptText, CreditCard, FileText } from 'lucide-react';
 import Insights from '@/components/shell/Insights';
 import { fwById, INCOME_NUM } from '@/lib/frameworks';
 
@@ -85,26 +85,32 @@ function HomeContent() {
           <div style={{ padding: '6px 20px 24px' }}>
             {tab === 'accounts' ? (
               <>
-                {locked && (
-                  <div className="card" style={{ padding: 16, margin: '16px 0 6px', cursor: 'pointer', boxShadow: 'var(--shadow-card), inset 0 0 0 1px var(--color-border)' }}
-                    onClick={() => router.push(`/payday/manage?fw=${fwId}&locked=1`)}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div className="card" style={{ padding: 16, margin: '16px 0 6px', cursor: 'pointer', boxShadow: 'var(--shadow-card), inset 0 0 0 1px var(--color-border)' }}
+                  onClick={() => router.push(`/payday/manage?fw=${fwId}&locked=${locked ? 1 : 0}${locked ? '' : '&tab=settings'}`)}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    {locked ? (
                       <span className="chip chip--ok"><Lock size={13} /> Payday Lock active</span>
-                      <ChevronRight size={18} color="var(--text-tertiary)" />
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 }}>
-                      <div>
-                        <div style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Locked savings</div>
-                        <div style={{ fontSize: 23, fontWeight: 800, fontVariantNumeric: 'tabular-nums', marginTop: 1 }}>
-                          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginRight: 4 }}>SGD</span>
-                          {fmtSGD(savings)}
-                        </div>
-                        <div style={{ fontSize: 11.5, color: 'var(--text-tertiary)', marginTop: 6 }}>{fw.name} · unlocks next payday</div>
+                    ) : (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 999, background: 'var(--dbs-gray-100)', color: 'var(--text-secondary)' }}>
+                        <Unlock size={13} /> Payday Lock off
+                      </span>
+                    )}
+                    <ChevronRight size={18} color="var(--text-tertiary)" />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 }}>
+                    <div>
+                      <div style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>{locked ? 'Locked savings' : 'Unlocked savings'}</div>
+                      <div style={{ fontSize: 23, fontWeight: 800, fontVariantNumeric: 'tabular-nums', marginTop: 1 }}>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginRight: 4 }}>SGD</span>
+                        {fmtSGD(savings)}
                       </div>
+                      <div style={{ fontSize: 11.5, color: 'var(--text-tertiary)', marginTop: 6 }}>{locked ? `${fw.name} · unlocks next payday` : `${fw.name} · tap to lock again`}</div>
+                    </div>
+                    <div style={{ opacity: locked ? 1 : 0.45 }}>
                       <Donut segments={lockSegs} size={52} thickness={6} />
                     </div>
                   </div>
-                )}
+                </div>
 
                 {/* Account rows */}
                 {[
