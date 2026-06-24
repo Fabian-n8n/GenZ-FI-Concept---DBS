@@ -4,8 +4,7 @@
 // Reused by Flow 1 (/payday) and Flow 2B (/categorise/dbs-app).
 import { useState, useEffect } from 'react';
 import DbsLogin from './DbsLogin';
-import FaceIdIsland from './FaceIdIsland';
-import KeyLoader from './KeyLoader';
+import { KeyLoadingOverlay } from './KeyLoader';
 import {
   Bell, MessageSquare, Eye, ChevronLeft, ChevronRight, LogIn, Smartphone,
   Send, Globe, QrCode, LayoutGrid,
@@ -41,10 +40,8 @@ function Loader() {
     }}>
       <img src="/assets/logo/dbs-master-logo.png" alt="DBS — Live more, Bank less"
         style={{ width: 230, height: 'auto', display: 'block' }} />
-      {/* Continuous key loader near the bottom, like the real DBS launch splash */}
-      <div style={{ position: 'absolute', bottom: 'calc(env(safe-area-inset-bottom) + 70px)', left: '50%', transform: 'translateX(-50%)' }}>
-        <KeyLoader size={46} card={false} />
-      </div>
+      {/* Dimmed overlay with the centered key loader, like the real DBS launch */}
+      <KeyLoadingOverlay />
     </div>
   );
 }
@@ -150,18 +147,8 @@ function LoginStage({ onLogin, onBack }) {
   );
 }
 
-/* ── Stage 4: biometric loading — dimmed splash + Face ID in the dynamic island ──
-   Mirrors the iOS native Face ID flow: the Dynamic Island shows the Face ID
-   glyph while scanning (with a soft green aura + gentle breathing), then morphs
-   to a green checkmark + "Face ID" on success, over the dimmed app splash. */
+/* ── Stage 4: logging-in loader — dimmed splash + centered DBS key loader ── */
 function LoadingStage() {
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setDone(true), 1100);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff', fontFamily: 'var(--font-sans)' }}>
       {/* Splash logo, centred (reused loader) */}
@@ -170,13 +157,8 @@ function LoadingStage() {
           style={{ width: 230, height: 'auto', display: 'block' }} />
       </div>
 
-      {/* Dark overlay dims the splash */}
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.46)' }} />
-
-      {/* Face ID — Dynamic Island at the top */}
-      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 8px)', left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
-        <FaceIdIsland done={done} />
-      </div>
+      {/* Dimmed overlay with the centered key loader */}
+      <KeyLoadingOverlay />
     </div>
   );
 }

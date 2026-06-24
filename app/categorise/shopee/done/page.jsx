@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Drawer from '@/components/primitives/Drawer';
 import TopNotif from '@/components/primitives/TopNotif';
 import CatIcon from '@/components/primitives/CatIcon';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { X } from 'lucide-react';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
@@ -33,6 +34,7 @@ export default function ShopeeDonePage() {
   const [changed, setChanged] = useState(false);
   const [overlay, setOverlay] = useState(null);
   const [showNotif, setShowNotif] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Let the success screen settle, then the DBS categorisation notification slides in.
   useEffect(() => {
@@ -84,10 +86,16 @@ export default function ShopeeDonePage() {
             subtitle="Pick a new category for this transaction."
             options={PICK_OPTIONS}
             selected={cat}
-            onPick={(c) => { setCat(c); setChanged(true); setOverlay(null); setShowNotif(true); }}
+            onPick={(c) => {
+              setOverlay(null);
+              setLoading(true);
+              setTimeout(() => { setCat(c); setChanged(true); setLoading(false); setShowNotif(true); }, 650);
+            }}
           />
         </Drawer>
       )}
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }

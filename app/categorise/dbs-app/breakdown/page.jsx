@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import Donut from '@/components/primitives/Donut';
 import CatIcon from '@/components/primitives/CatIcon';
 import Drawer from '@/components/primitives/Drawer';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { ChevronLeft, ArrowUp, ArrowDown, Lock, Pencil } from 'lucide-react';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { BREAKDOWN_TXNS, LAST_MONTH, SPENDING_BUDGET, fmtMoney } from '@/lib/transactions';
@@ -44,6 +45,7 @@ function BreakdownContent() {
   const [tab, setTab] = useState(params.get('tab') === 'transactions' ? 'transactions' : 'spending');
   const [txns, setTxns] = useState(BREAKDOWN_TXNS);
   const [editId, setEditId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Everything below is DERIVED from txns, so recategorising updates it all.
   const derived = useMemo(() => {
@@ -233,12 +235,19 @@ function BreakdownContent() {
           <CategoryPicker
             selected={editing.cat}
             onPick={(c) => {
-              setTxns((prev) => prev.map((t) => (t.id === editing.id ? { ...t, cat: c } : t)));
+              const id = editing.id;
               setEditId(null);
+              setLoading(true);
+              setTimeout(() => {
+                setTxns((prev) => prev.map((t) => (t.id === id ? { ...t, cat: c } : t)));
+                setLoading(false);
+              }, 650);
             }}
           />
         </Drawer>
       )}
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }

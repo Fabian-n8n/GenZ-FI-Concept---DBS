@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import Drawer from '@/components/primitives/Drawer';
 import TopNotif from '@/components/primitives/TopNotif';
 import CatIcon from '@/components/primitives/CatIcon';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { CATS, PICK_OPTIONS } from '@/lib/categories';
 import { DBSCard } from '../page';
 
@@ -101,6 +102,13 @@ function DoneContent() {
   const [changed, setChanged] = useState(false);
   const [overlay, setOverlay] = useState(null);
   const [showBanner, setShowBanner] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function pickWithLoad(c) {
+    setOverlay(null);
+    setLoading(true);
+    setTimeout(() => { setCat(c); setCategorised(true); setChanged(true); setLoading(false); setShowBanner(true); }, 650);
+  }
 
   const merchantName = isUnknown ? 'ABC PTE LTD' : merchantParam;
 
@@ -178,7 +186,7 @@ function DoneContent() {
             subtitle="We couldn't match this merchant. Pick a category."
             options={PICK_OPTIONS}
             selected={cat}
-            onPick={(c) => { setCat(c); setCategorised(true); setChanged(true); setOverlay(null); setShowBanner(true); }}
+            onPick={pickWithLoad}
           />
         </Drawer>
       )}
@@ -190,10 +198,12 @@ function DoneContent() {
             subtitle="Pick a new category for this transaction."
             options={PICK_OPTIONS}
             selected={cat}
-            onPick={(c) => { setCat(c); setChanged(true); setOverlay(null); setShowBanner(true); }}
+            onPick={pickWithLoad}
           />
         </Drawer>
       )}
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }
