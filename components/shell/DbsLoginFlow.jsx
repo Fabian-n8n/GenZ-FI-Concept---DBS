@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import DbsLogin from './DbsLogin';
 import { KeyLoadingOverlay } from './KeyLoader';
+import FaceIdIsland from './FaceIdIsland';
 import {
   Bell, MessageSquare, Eye, ChevronLeft, ChevronRight, LogIn, Smartphone,
   Send, Globe, QrCode, LayoutGrid,
@@ -147,8 +148,14 @@ function LoginStage({ onLogin, onBack }) {
   );
 }
 
-/* ── Stage 4: logging-in loader — brand splash dimmed + centered key loader ── */
+/* ── Stage 4: logging-in loader — Face ID island (scan → green check) at the
+   top, brand splash dimmed + centered key loader below ── */
 function LoadingStage() {
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setDone(true), 780);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff', fontFamily: 'var(--font-sans)' }}>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -156,6 +163,10 @@ function LoadingStage() {
           style={{ width: 230, height: 'auto', display: 'block' }} />
       </div>
       <KeyLoadingOverlay />
+      {/* Face ID biometric island, above the dim, near the top */}
+      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 60px)', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 90 }}>
+        <FaceIdIsland done={done} size={120} />
+      </div>
     </div>
   );
 }
