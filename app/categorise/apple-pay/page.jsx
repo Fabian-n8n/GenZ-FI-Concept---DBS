@@ -169,7 +169,10 @@ function ApplePayStartContent() {
         </div>
 
         <button
-          onClick={() => router.push('/categorise/apple-pay/biometric?merchant=' + encodeURIComponent(merchant))}
+          onClick={() => {
+            const qs = params.toString();
+            router.push('/categorise/apple-pay/biometric' + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant)));
+          }}
           style={{
             width: 76, height: 76, borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',

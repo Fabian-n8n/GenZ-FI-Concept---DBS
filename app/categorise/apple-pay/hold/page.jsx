@@ -71,9 +71,12 @@ function HoldContent() {
   const merchant = params.get('merchant') || 'SCARLETT STORE';
 
   useEffect(() => {
-    const t = setTimeout(() => router.push('/categorise/apple-pay/done?merchant=' + encodeURIComponent(merchant)), 1600);
+    const qs = params.toString();
+    const next = params.get('next') || '/categorise/apple-pay/done';
+    const url = next + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant));
+    const t = setTimeout(() => router.push(url), 1600);
     return () => clearTimeout(t);
-  }, [merchant, router]);
+  }, [merchant, params, router]);
 
   return (
     <div style={{

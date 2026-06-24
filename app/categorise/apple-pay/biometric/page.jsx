@@ -11,10 +11,12 @@ function BiometricContent() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    const qs = params.toString();
+    const holdUrl = '/categorise/apple-pay/hold' + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant));
     const t1 = setTimeout(() => setDone(true), 1300);
-    const t2 = setTimeout(() => router.push('/categorise/apple-pay/hold?merchant=' + encodeURIComponent(merchant)), 2050);
+    const t2 = setTimeout(() => router.push(holdUrl), 2050);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [merchant, router]);
+  }, [merchant, params, router]);
 
   return (
     <div className="apple-pay-screen screen" style={{ gap: 0, position: 'relative' }}>

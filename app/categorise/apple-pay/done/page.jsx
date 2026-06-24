@@ -88,16 +88,21 @@ function CategoryPicker({ title, subtitle, options, selected, onPick }) {
 function DoneContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'known';
-  const isKnown = merchant !== 'unknown';
+  const merchantParam = params.get('merchant') || 'SCARLETT STORE';
+  const isUnknown = merchantParam === 'unknown';
+  const isKnown = !isUnknown;
+  const back = params.get('back') || '/categorise';
 
-  const [cat, setCat] = useState(isKnown ? 'Dining' : null);
+  const amt = Number(params.get('amt') || '31.50');
+  const amtFmt = 'S$' + amt.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const [cat, setCat] = useState(isKnown ? (params.get('cat') || 'Dining') : null);
   const [categorised, setCategorised] = useState(isKnown);
   const [changed, setChanged] = useState(false);
   const [overlay, setOverlay] = useState(null);
   const [showBanner, setShowBanner] = useState(false);
 
-  const merchantName = isKnown ? 'SCARLETT STORE' : 'ABC PTE LTD';
+  const merchantName = isUnknown ? 'ABC PTE LTD' : merchantParam;
 
   useEffect(() => {
     if (!isKnown && !categorised) {
@@ -113,8 +118,8 @@ function DoneContent() {
     return changed ? 'Transaction has been categorised' : 'Payment successful';
   }
   function bannerText() {
-    if (!categorised) return <span>S$31.50 at <strong>{merchantName}</strong>. Tap to categorise.</span>;
-    return <span>S$31.50 at <strong>{merchantName}</strong>, categorised as <strong>{cat}</strong>. Tap to change.</span>;
+    if (!categorised) return <span>{amtFmt} at <strong>{merchantName}</strong>. Tap to categorise.</span>;
+    return <span>{amtFmt} at <strong>{merchantName}</strong>, categorised as <strong>{cat}</strong>. Tap to change.</span>;
   }
 
   return (
@@ -141,7 +146,7 @@ function DoneContent() {
         paddingBottom: 80,
         zIndex: 1,
       }}>
-        <DoneCheck onClick={() => router.push('/categorise')} />
+        <DoneCheck onClick={() => router.push(back)} />
         <div style={{
           fontSize: 18, fontWeight: 600,
           color: 'rgba(255,255,255,0.75)',

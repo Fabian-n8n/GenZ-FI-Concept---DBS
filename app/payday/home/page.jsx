@@ -89,7 +89,7 @@ function HomeContent() {
                   <div className="card" style={{ padding: 16, margin: '16px 0 6px', cursor: 'pointer', boxShadow: 'var(--shadow-card), inset 0 0 0 1px var(--dbs-red-100)' }}
                     onClick={() => router.push(`/payday/manage?fw=${fwId}&locked=1`)}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span className="chip chip--lock"><Lock size={13} /> Payday Lock active</span>
+                      <span className="chip chip--ok"><Lock size={13} /> Payday Lock active</span>
                       <ChevronRight size={18} color="var(--text-tertiary)" />
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 }}>
