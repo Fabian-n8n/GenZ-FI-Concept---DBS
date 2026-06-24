@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export default function DbsLoginFlow({ onComplete, onExit }) {
-  const [stage, setStage] = useState('loader'); // loader | prelogin | login | loading
+  const [stage, setStage] = useState('loader'); // loader | prelogin | login | faceid | loading
 
   useEffect(() => {
     if (stage !== 'loader') return;
@@ -28,7 +28,8 @@ export default function DbsLoginFlow({ onComplete, onExit }) {
 
   if (stage === 'loader')   return <Loader />;
   if (stage === 'prelogin') return <PreLogin onLogin={() => setStage('login')} onExit={onExit} />;
-  if (stage === 'login') return <LoginStage onLogin={() => setStage('loading')} onBack={() => setStage('prelogin')} />;
+  if (stage === 'login') return <LoginStage onLogin={() => setStage('faceid')} onBack={() => setStage('prelogin')} />;
+  if (stage === 'faceid') return <FaceIdStage onDone={() => setStage('loading')} />;
   return <LoadingStage />;
 }
 
@@ -141,21 +142,36 @@ function PreLogin({ onLogin }) {
   );
 }
 
-/* ── Stage 3: login screen with a centered lock loader over a dark overlay ── */
+/* ── Stage 3: login screen with the red LOG IN CTA ── */
 function LoginStage({ onLogin, onBack }) {
   return (
     <DbsLogin onClose={onBack} onLogin={onLogin} />
   );
 }
 
-/* ── Stage 4: logging-in loader — Face ID island (scan → green check) at the
-   top, brand splash dimmed + centered key loader below ── */
-function LoadingStage() {
+/* ── Stage 4: biometric — stays on the login screen while the Face ID island
+   appears at the top, scans, then turns to a green check, before handing off
+   to the loading splash. ── */
+function FaceIdStage({ onDone }) {
   const [done, setDone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setDone(true), 780);
-    return () => clearTimeout(t);
-  }, []);
+    const tCheck = setTimeout(() => setDone(true), 1050); // scan → green check
+    const tNext  = setTimeout(onDone, 1850);              // hold the check, then load
+    return () => { clearTimeout(tCheck); clearTimeout(tNext); };
+  }, [onDone]);
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100dvh' }}>
+      <DbsLogin onClose={() => {}} onLogin={() => {}} />
+      {/* Face ID island overlaid at the top of the same login screen */}
+      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 56px)', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 90, pointerEvents: 'none' }}>
+        <FaceIdIsland done={done} size={120} />
+      </div>
+    </div>
+  );
+}
+
+/* ── Stage 5: logging-in loader — brand splash dimmed + centered key loader ── */
+function LoadingStage() {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff', fontFamily: 'var(--font-sans)' }}>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -163,10 +179,6 @@ function LoadingStage() {
           style={{ width: 230, height: 'auto', display: 'block' }} />
       </div>
       <KeyLoadingOverlay />
-      {/* Face ID biometric island, above the dim, near the top */}
-      <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 60px)', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 90 }}>
-        <FaceIdIsland done={done} size={120} />
-      </div>
     </div>
   );
 }
