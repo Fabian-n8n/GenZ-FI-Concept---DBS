@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import LockLoader from '@/components/shell/LockLoader';
+import KeyLoader from '@/components/shell/KeyLoader';
 
 function FaceIdContent() {
   const router = useRouter();
@@ -42,7 +42,7 @@ function FaceIdContent() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, marginTop: 40 }}>
-        <LockLoader size={84} />
+        <KeyLoader size={72} />
 
         <div style={{ textAlign: 'center', color: '#fff' }}>
           <div style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.3px' }}>Verifying it's you</div>

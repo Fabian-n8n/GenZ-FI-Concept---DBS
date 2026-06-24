@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import DbsLogin from './DbsLogin';
 import FaceIdIsland from './FaceIdIsland';
+import KeyLoader from './KeyLoader';
 import {
   Bell, MessageSquare, Eye, ChevronLeft, ChevronRight, LogIn, Smartphone,
   Send, Globe, QrCode, LayoutGrid,
@@ -36,10 +37,14 @@ function Loader() {
   return (
     <div style={{
       width: '100%', height: '100dvh', background: '#fff',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
     }}>
       <img src="/assets/logo/dbs-master-logo.png" alt="DBS — Live more, Bank less"
         style={{ width: 230, height: 'auto', display: 'block' }} />
+      {/* Continuous key loader near the bottom, like the real DBS launch splash */}
+      <div style={{ position: 'absolute', bottom: 'calc(env(safe-area-inset-bottom) + 70px)', left: '50%', transform: 'translateX(-50%)' }}>
+        <KeyLoader size={46} card={false} />
+      </div>
     </div>
   );
 }

@@ -62,12 +62,6 @@ export default function ShopeeDonePage() {
           </div>
           <div style={{ marginTop: 14, fontSize: 14.5, color: '#8c8c8c' }}>Apple Pay · DBS Visa Platinum</div>
         </div>
-
-        {changed && (
-          <div style={{ background: 'var(--dbs-blue-50)', borderRadius: 10, padding: '12px 16px', fontSize: 14, color: 'var(--dbs-blue-500)', fontWeight: 500 }}>
-            ✓ Category updated to <strong>{cat}</strong>
-          </div>
-        )}
       </div>
 
       <div style={{ flexShrink: 0, padding: '12px 16px calc(16px + env(safe-area-inset-bottom))' }}>
