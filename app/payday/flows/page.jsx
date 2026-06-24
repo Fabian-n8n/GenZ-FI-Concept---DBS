@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { Lock, ShoppingBag } from 'lucide-react';
 
 export default function PaydayFlowsLanding() {
   const flows = [
@@ -8,14 +9,14 @@ export default function PaydayFlowsLanding() {
       title: 'Flow A — Payday Interception',
       href: '/payday',
       color: 'linear-gradient(135deg,#ff1a1a,#a30000)',
-      emoji: '🔒',
+      Icon: Lock,
     },
     {
       id: 'B',
       title: 'Flow B — Payday Lock over-spend',
       href: '/payday/shopee',
       color: '#ee4d2d',
-      emoji: '🛍️',
+      Icon: ShoppingBag,
     },
   ];
 
@@ -38,8 +39,8 @@ export default function PaydayFlowsLanding() {
           {flows.map(f => (
             <Link key={f.id} href={f.href} style={{ textDecoration: 'none' }}>
               <div className="card" style={{ padding: 18, display: 'flex', gap: 16, alignItems: 'center', cursor: 'pointer' }}>
-                <div style={{ width: 48, height: 48, borderRadius: 4, background: f.color, display: 'grid', placeItems: 'center', fontSize: 22, flexShrink: 0 }}>
-                  {f.emoji}
+                <div style={{ width: 48, height: 48, borderRadius: 4, background: f.color, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  <f.Icon size={24} strokeWidth={1.8} color="#fff" />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--text-primary)' }}>{f.title}</div>

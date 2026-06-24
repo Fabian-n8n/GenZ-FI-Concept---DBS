@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { Smartphone, Landmark, ShoppingBag } from 'lucide-react';
 
 export default function CategoriseLanding() {
   const flows = [
@@ -9,7 +10,7 @@ export default function CategoriseLanding() {
       sub: 'Tap & pay → auto-categorise banner → change category',
       href: '/categorise/apple-pay',
       color: '#000',
-      emoji: '📱',
+      Icon: Smartphone,
     },
     {
       id: 'B',
@@ -17,7 +18,7 @@ export default function CategoriseLanding() {
       sub: 'DBS login → Face ID → Home → Transaction history → Breakdown → Edit',
       href: '/categorise/dbs-app',
       color: 'var(--dbs-red-600)',
-      emoji: '🏦',
+      Icon: Landmark,
     },
     {
       id: 'C',
@@ -25,7 +26,7 @@ export default function CategoriseLanding() {
       sub: 'Shopee pay → payment success → auto-categorised',
       href: '/categorise/shopee',
       color: '#ee4d2d',
-      emoji: '🛍️',
+      Icon: ShoppingBag,
     },
   ];
 
@@ -48,8 +49,8 @@ export default function CategoriseLanding() {
           {flows.map(f => (
             <Link key={f.id} href={f.href} style={{ textDecoration: 'none' }}>
               <div className="card" style={{ padding: 18, display: 'flex', gap: 16, alignItems: 'center', cursor: 'pointer' }}>
-                <div style={{ width: 48, height: 48, borderRadius: 4, background: f.color, display: 'grid', placeItems: 'center', fontSize: 22, flexShrink: 0 }}>
-                  {f.emoji}
+                <div style={{ width: 48, height: 48, borderRadius: 4, background: f.color, display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  <f.Icon size={24} strokeWidth={1.8} color="#fff" />
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--text-primary)' }}>{f.title}</div>
