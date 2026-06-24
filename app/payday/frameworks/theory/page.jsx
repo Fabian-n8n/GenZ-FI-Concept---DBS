@@ -45,11 +45,18 @@ function TheoryContent() {
         </p>
       </div>
 
-      {!readonly && (
+      {!readonly ? (
         <div className="screen-footer screen-footer--plain" style={{ padding: '12px 20px calc(12px + env(safe-area-inset-bottom))' }}>
           <button className="btn-primary"
             onClick={() => router.push(`/payday/frameworks/preview?fw=${fwId}&mode=${mode}`)}>
             {mode === 'change' ? `Switch to ${fw.name}` : `Select ${fw.name} framework`}
+          </button>
+        </div>
+      ) : (
+        <div className="screen-footer screen-footer--plain" style={{ padding: '12px 20px calc(12px + env(safe-area-inset-bottom))' }}>
+          <button className="btn-secondary"
+            onClick={() => router.push(`/payday/frameworks?mode=change&current=${fwId}`)}>
+            Change framework
           </button>
         </div>
       )}
