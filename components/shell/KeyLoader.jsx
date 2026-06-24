@@ -20,23 +20,23 @@ export default function KeyLoader({ size = 80, boxBg = '#34383f' }) {
         <svg width={inner} height={inner} viewBox={VB} fill="none" style={{ position: 'absolute', inset: 0 }} aria-hidden="true">
           <path d={KEY_D} fill="rgba(255,255,255,0.3)" />
         </svg>
-        {/* White fill, swept diagonally bottom-left → top-right on a loop */}
+        {/* White fill — a diagonal front that sweeps bottom-left → top-right
+            and loops in ONE direction (translate by exactly one tile = seamless). */}
         <svg width={inner} height={inner} viewBox={VB} fill="none" style={{
           position: 'absolute', inset: 0,
-          WebkitMaskImage: 'linear-gradient(45deg, #000 45%, transparent 60%)',
-          maskImage: 'linear-gradient(45deg, #000 45%, transparent 60%)',
-          WebkitMaskSize: '250% 250%', maskSize: '250% 250%',
-          WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
-          animation: 'keyFill 2s ease-in-out infinite',
+          WebkitMaskImage: 'linear-gradient(45deg, #000 0%, #000 40%, transparent 50%, transparent 90%, #000 100%)',
+          maskImage: 'linear-gradient(45deg, #000 0%, #000 40%, transparent 50%, transparent 90%, #000 100%)',
+          WebkitMaskSize: '170px 170px', maskSize: '170px 170px',
+          WebkitMaskRepeat: 'repeat', maskRepeat: 'repeat',
+          animation: 'keyFill 2.1s linear infinite',
         }} aria-hidden="true">
           <path d={KEY_D} fill="#ffffff" />
         </svg>
       </div>
       <style>{`
         @keyframes keyFill {
-          0%   { -webkit-mask-position: 125% -25%; mask-position: 125% -25%; }
-          50%  { -webkit-mask-position: -25% 125%; mask-position: -25% 125%; }
-          100% { -webkit-mask-position: 125% -25%; mask-position: 125% -25%; }
+          from { -webkit-mask-position: 0px 0px;     mask-position: 0px 0px; }
+          to   { -webkit-mask-position: 170px -170px; mask-position: 170px -170px; }
         }
       `}</style>
     </div>
