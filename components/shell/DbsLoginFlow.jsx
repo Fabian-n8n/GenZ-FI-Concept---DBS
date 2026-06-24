@@ -155,9 +155,9 @@ function LoginStage({ onLogin, onBack }) {
 function FaceIdStage({ onDone }) {
   const [done, setDone] = useState(false);
   useEffect(() => {
-    const tCheck = setTimeout(() => setDone(true), 1050); // scan → green check
-    const tNext  = setTimeout(onDone, 1850);              // hold the check, then load
-    return () => { clearTimeout(tCheck); clearTimeout(tNext); };
+    const tDone = setTimeout(() => setDone(true), 1000); // scan → spheres → check
+    const tNext = setTimeout(onDone, 2600);              // hold the check, then load
+    return () => { clearTimeout(tDone); clearTimeout(tNext); };
   }, [onDone]);
   return (
     <div style={{ position: 'relative', width: '100%', height: '100dvh' }}>

@@ -18,8 +18,8 @@ function BiometricContent() {
     const dest = bioNext
       ? bioNext + (qs ? '?' + qs : '')
       : '/categorise/apple-pay/hold' + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant));
-    const t1 = setTimeout(() => setDone(true), 1300);
-    const t2 = setTimeout(() => router.push(dest), 2050);
+    const t1 = setTimeout(() => setDone(true), 1200);
+    const t2 = setTimeout(() => router.push(dest), 2850);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [merchant, params, router]);
 
