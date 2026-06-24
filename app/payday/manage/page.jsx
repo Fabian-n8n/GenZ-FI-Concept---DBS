@@ -6,6 +6,7 @@ import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import Switch from '@/components/primitives/Switch';
 import Drawer from '@/components/primitives/Drawer';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { Check, ChevronRight, HelpCircle, Lock } from 'lucide-react';
 import { fwById } from '@/lib/frameworks';
 
@@ -114,6 +115,10 @@ function ManageContent() {
   const locked = params.get('locked') !== '0';
   const fw     = fwById(fwId);
   const [showPause, setShowPause] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Brief key-loader on the same screen before navigating (no separate screen).
+  const go = (href) => { setShowPause(false); setLoading(true); setTimeout(() => router.push(href), 1100); };
 
   // Spending-so-far vs the framework's Spending budget (rows[1])
   const fmtSGD2     = (n) => 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -126,16 +131,15 @@ function ManageContent() {
   // Branch on the argument, not the URL param (which can be stale or missing).
   function handleToggle(turningOn) {
     if (turningOn) {
-      router.push(`/payday/faceid?next=success&variant=locked&fw=${fwId}`);
+      go(`/payday/success?variant=locked&fw=${fwId}`);
     } else {
       setShowPause(true);
     }
   }
 
   function handlePauseContinue(sel) {
-    setShowPause(false);
-    // Route through Face ID, then success with pause info encoded in URL
-    router.push(`/payday/faceid?next=success&variant=off&fw=${fwId}&pauseMode=${sel.mode}&pauseLabel=${encodeURIComponent(sel.label)}`);
+    // Brief key-loader, then success with pause info encoded in URL
+    go(`/payday/success?variant=off&fw=${fwId}&pauseMode=${sel.mode}&pauseLabel=${encodeURIComponent(sel.label)}`);
   }
 
   return (
@@ -258,6 +262,8 @@ function ManageContent() {
           />
         </Drawer>
       )}
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }

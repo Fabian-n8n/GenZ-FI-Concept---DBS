@@ -40,7 +40,7 @@ function Loader() {
     }}>
       <img src="/assets/logo/dbs-master-logo.png" alt="DBS — Live more, Bank less"
         style={{ width: 230, height: 'auto', display: 'block' }} />
-      {/* Dimmed overlay with the centered key loader, like the real DBS launch */}
+      {/* Dimmed overlay with the centered key loader, over the brand splash */}
       <KeyLoadingOverlay />
     </div>
   );
@@ -147,17 +147,14 @@ function LoginStage({ onLogin, onBack }) {
   );
 }
 
-/* ── Stage 4: logging-in loader — dimmed splash + centered DBS key loader ── */
+/* ── Stage 4: logging-in loader — brand splash dimmed + centered key loader ── */
 function LoadingStage() {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff', fontFamily: 'var(--font-sans)' }}>
-      {/* Splash logo, centred (reused loader) */}
       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img src="/assets/logo/dbs-master-logo.png" alt="DBS — Live more, Bank less"
           style={{ width: 230, height: 'auto', display: 'block' }} />
       </div>
-
-      {/* Dimmed overlay with the centered key loader */}
       <KeyLoadingOverlay />
     </div>
   );

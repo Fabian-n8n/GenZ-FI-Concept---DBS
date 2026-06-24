@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
 import Drawer from '@/components/primitives/Drawer';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { fwById, INCOME } from '@/lib/frameworks';
 
 function PreviewContent() {
@@ -14,6 +15,10 @@ function PreviewContent() {
   const mode = params.get('mode') || 'setup';
   const fw = fwById(fwId);
   const [showLock, setShowLock] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Brief key-loader on the same screen before moving on (feels like a real app).
+  const go = (href) => { setShowLock(false); setLoading(true); setTimeout(() => router.push(href), 1100); };
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
@@ -50,7 +55,7 @@ function PreviewContent() {
       <div className="screen-footer">
         <button className="btn-primary" onClick={() => {
           if (mode === 'change') {
-            router.push(`/payday/faceid?next=success&variant=updated&fw=${fwId}`);
+            go(`/payday/success?variant=updated&fw=${fwId}`);
           } else {
             setShowLock(true);
           }
@@ -74,11 +79,13 @@ function PreviewContent() {
             Once locked, you'll need Face ID to access this amount. Your spending balance stays available as usual.
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <button className="btn-primary" onClick={() => router.push(`/payday/success?fw=${fwId}&variant=locked`)}>Lock my savings</button>
+            <button className="btn-primary" onClick={() => go(`/payday/success?fw=${fwId}&variant=locked`)}>Lock my savings</button>
             <button className="btn-ghost" onClick={() => { setShowLock(false); router.push(`/payday/home?fw=${fwId}&locked=0`); }}>Not now</button>
           </div>
         </Drawer>
       )}
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }

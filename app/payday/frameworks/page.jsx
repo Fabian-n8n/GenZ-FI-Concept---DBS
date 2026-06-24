@@ -1,8 +1,10 @@
 'use client';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
+import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { ChevronRight } from 'lucide-react';
 import { FRAMEWORKS } from '@/lib/frameworks';
 
@@ -11,11 +13,15 @@ function FrameworksContent() {
   const params = useSearchParams();
   const mode = params.get('mode') || 'setup'; // setup | change
   const currentFw = params.get('current') || 'warren';
+  const [loading, setLoading] = useState(false);
+
+  // Brief key-loader before navigating, so transitions feel like a real app.
+  const go = (href) => { setLoading(true); setTimeout(() => router.push(href), 750); };
 
   const isChange = mode === 'change';
 
   return (
-    <div className="screen screen--white">
+    <div className="screen screen--white" style={{ position: 'relative' }}>
       <AppBar
         title={isChange ? 'Change framework' : 'Framework selection'}
         onBack={() => router.back()}
@@ -57,7 +63,7 @@ function FrameworksContent() {
                   <button
                     className="fw-card__select"
                     disabled={isCurrent}
-                    onClick={() => !isCurrent && router.push(`/payday/frameworks/preview?fw=${fw.id}&mode=${mode}`)}
+                    onClick={() => !isCurrent && go(`/payday/frameworks/preview?fw=${fw.id}&mode=${mode}`)}
                   >
                     {isCurrent ? 'Selected' : isChange ? 'Switch to this' : 'Select framework'}
                   </button>
@@ -73,6 +79,8 @@ function FrameworksContent() {
           })}
         </div>
       </div>
+
+      {loading && <KeyLoadingOverlay />}
     </div>
   );
 }
