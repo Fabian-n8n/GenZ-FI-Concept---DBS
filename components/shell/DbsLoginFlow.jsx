@@ -164,7 +164,7 @@ function FaceIdStage({ onDone }) {
       <DbsLogin onClose={() => {}} onLogin={() => {}} />
       {/* Face ID island overlaid at the top of the same login screen */}
       <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top) + 56px)', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 90, pointerEvents: 'none' }}>
-        <FaceIdIsland done={done} size={120} />
+        <FaceIdIsland done={done} size={150} />
       </div>
     </div>
   );
