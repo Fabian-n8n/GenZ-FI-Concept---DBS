@@ -10,7 +10,8 @@ export default function CatShopeePage() {
       onBack={() => { setNextRouteDirection(-1); router.push('/categorise'); }}
       onPlaceOrder={() => {
         setNextRouteDirection(1);
-        router.push('/categorise/apple-pay?merchant=' + encodeURIComponent('Shopee') + '&amt=15.38&cat=Shopping&back=' + encodeURIComponent('/categorise'));
+        // Apple Pay card → Face ID → Shopee payment success (online, no NFC hold)
+        router.push('/categorise/apple-pay?merchant=' + encodeURIComponent('Shopee') + '&bioNext=' + encodeURIComponent('/categorise/shopee/done'));
       }}
     />
   );

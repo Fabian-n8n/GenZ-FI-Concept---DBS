@@ -11,8 +11,8 @@ function ShopeeContent() {
       onBack={() => { setNextRouteDirection(-1); router.back(); }}
       onPlaceOrder={() => {
         setNextRouteDirection(1);
-        // Apple Pay tap → declined by Payday Lock → over-limit blocked screen
-        router.push('/categorise/apple-pay?merchant=' + encodeURIComponent('Shopee') + '&amt=15.38&next=' + encodeURIComponent('/payday/shopee/blocked') + '&back=' + encodeURIComponent('/payday/shopee'));
+        // Apple Pay card → Face ID → declined by Payday Lock → over-limit screen
+        router.push('/categorise/apple-pay?merchant=' + encodeURIComponent('Shopee') + '&bioNext=' + encodeURIComponent('/payday/shopee/blocked'));
       }}
     />
   );

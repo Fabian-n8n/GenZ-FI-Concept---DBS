@@ -12,9 +12,14 @@ function BiometricContent() {
 
   useEffect(() => {
     const qs = params.toString();
-    const holdUrl = '/categorise/apple-pay/hold' + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant));
+    // Online flows (Shopee) skip "Hold Near Reader" and go straight to the
+    // merchant result via bioNext; in-store Apple Pay (no bioNext) keeps the hold step.
+    const bioNext = params.get('bioNext');
+    const dest = bioNext
+      ? bioNext + (qs ? '?' + qs : '')
+      : '/categorise/apple-pay/hold' + (qs ? '?' + qs : '?merchant=' + encodeURIComponent(merchant));
     const t1 = setTimeout(() => setDone(true), 1300);
-    const t2 = setTimeout(() => router.push(holdUrl), 2050);
+    const t2 = setTimeout(() => router.push(dest), 2050);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [merchant, params, router]);
 

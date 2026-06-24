@@ -72,6 +72,19 @@ export default function HomePage() {
             </div>
           </Link>
 
+          {/* Flow 1B — over-spend scenario */}
+          <Link href="/payday/shopee" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '14px 16px', cursor: 'pointer', marginLeft: 16 }}>
+              <div style={{ width: 34, height: 34, borderRadius: 8, background: '#ee4d2d', display: 'grid', placeItems: 'center', flexShrink: 0, fontSize: 16 }}>🛍️</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 1B</div>
+                <div style={{ fontSize: 14.5, fontWeight: 700, color: '#fff' }}>Payday Lock over-spend</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', marginTop: 2, lineHeight: 1.45 }}>Shopee checkout → blocked → switch off the lock</div>
+              </div>
+              <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round"><path d="M5 9h7M9 5l4 4-4 4" /></svg>
+            </div>
+          </Link>
+
           {/* Flow 2 */}
           <Link href="/categorise" style={{ textDecoration: 'none' }}>
             <div style={{

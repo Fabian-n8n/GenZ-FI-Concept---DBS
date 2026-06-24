@@ -257,24 +257,24 @@ function SectionCard({
           <Field
             label="Existing file ref (borrower arrangement with the property address)"
             value="-"
-            disabled={!editable}
-            editable={editable}
+            disabled
+            editable={false}
             onChange={() => {}}
           />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 16, marginBottom: 10 }}>
-          <Field label="Property status" value="Select" select disabled={!editable} editable={editable} onChange={() => {}} />
-          <Field label="Property description" value="Select" select disabled={!editable} editable={editable} onChange={() => {}} />
-          <Field label="Land tenure" value="Select" select disabled={!editable} editable={editable} onChange={() => {}} />
+          <Field label="Property status" value="Select" select disabled editable={false} onChange={() => {}} />
+          <Field label="Property description" value="Select" select disabled editable={false} onChange={() => {}} />
+          <Field label="Land tenure" value="Select" select disabled editable={false} onChange={() => {}} />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, marginBottom: 18, maxWidth: 250 }}>
           <Field
             label="Leasehold commencing from year"
             value="2022"
-            disabled={!editable}
-            editable={editable}
+            disabled
+            editable={false}
             onChange={() => {}}
           />
         </div>
