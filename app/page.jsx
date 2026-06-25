@@ -66,9 +66,6 @@ export default function HomePage() {
                   <div style={{ fontSize: 17, fontWeight: 800, color: '#fff' }}>Payday Interception</div>
                 </div>
               </div>
-              <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>
-                Salary notification → DBS login → Framework selection → Savings lock → Manage & opt-out
-              </div>
             </div>
           </Link>
 
@@ -89,9 +86,6 @@ export default function HomePage() {
                   <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>Flow 2</div>
                   <div style={{ fontSize: 17, fontWeight: 800, color: '#fff' }}>Auto-Categorisation</div>
                 </div>
-              </div>
-              <div style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.55 }}>
-                Apple Pay tap-to-pay · DBS app transaction review · Shopee in-app spend categorisation
               </div>
             </div>
           </Link>

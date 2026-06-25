@@ -29,7 +29,7 @@ function CategoryPicker({ title, subtitle, options, selected, onPick }) {
 
 export default function ShopeeDonePage() {
   const router = useRouter();
-  const [cat, setCat] = useState('Shopping');
+  const [cat, setCat] = useState('Dining');
   const [changed, setChanged] = useState(false);
   const [overlay, setOverlay] = useState(null);
   const [showNotif, setShowNotif] = useState(false);

@@ -88,7 +88,7 @@ function CategoryPicker({ title, subtitle, options, selected, onPick }) {
 function DoneContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchantParam = params.get('merchant') || 'SCARLETT STORE';
+  const merchantParam = params.get('merchant') || 'FAIRPRICE SG';
   const isUnknown = merchantParam === 'unknown';
   const isKnown = !isUnknown;
   const back = params.get('back') || '/categorise';
@@ -96,7 +96,7 @@ function DoneContent() {
   const amt = Number(params.get('amt') || '31.50');
   const amtFmt = 'S$' + amt.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  const [cat, setCat] = useState(isKnown ? (params.get('cat') || 'Dining') : null);
+  const [cat, setCat] = useState(isKnown ? (params.get('cat') || 'Grocery') : null);
   const [categorised, setCategorised] = useState(isKnown);
   const [changed, setChanged] = useState(false);
   const [overlay, setOverlay] = useState(null);

@@ -140,7 +140,7 @@ export function DBSCard({ compact = false }) {
 function ApplePayStartContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'SCARLETT STORE';
+  const merchant = params.get('merchant') || 'FAIRPRICE SG';
 
   return (
     <div className="apple-pay-screen screen" style={{ justifyContent: 'flex-start', gap: 0 }}>

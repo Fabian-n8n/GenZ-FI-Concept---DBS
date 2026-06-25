@@ -68,7 +68,7 @@ function NFCIcon() {
 function HoldContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'SCARLETT STORE';
+  const merchant = params.get('merchant') || 'FAIRPRICE SG';
 
   useEffect(() => {
     const qs = params.toString();

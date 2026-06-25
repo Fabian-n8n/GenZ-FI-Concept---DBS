@@ -7,7 +7,7 @@ import FaceIdIsland from '@/components/shell/FaceIdIsland';
 function BiometricContent() {
   const router = useRouter();
   const params = useSearchParams();
-  const merchant = params.get('merchant') || 'SCARLETT STORE';
+  const merchant = params.get('merchant') || 'FAIRPRICE SG';
   const [done, setDone] = useState(false);
 
   useEffect(() => {

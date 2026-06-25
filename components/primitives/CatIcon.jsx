@@ -22,6 +22,14 @@ export default function CatIcon({ cat, size = 22 }) {
         <path d="M9 6v3a3 3 0 006 0V6" />
       </>
     ),
+    Grocery: (
+      <>
+        {/* shopping cart */}
+        <path d="M3 4h2l2.2 11.2a1.5 1.5 0 001.5 1.2h7.6a1.5 1.5 0 001.5-1.15L20 8.5H6.2" />
+        <circle cx="9.5" cy="20" r="1.3" fill="currentColor" stroke="none" />
+        <circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none" />
+      </>
+    ),
     Transportation: (
       <>
         {/* bus */}
