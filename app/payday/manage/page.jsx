@@ -144,7 +144,7 @@ function ManageContent() {
   // over-spend flow the spend is pushed past the budget to warn the user (red).
   const fmtSGD2     = (n) => 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const spendBudget = parseFloat(fw.rows[1].amount.replace(/[^0-9.]/g, '')) || 0;
-  const spendSpent  = over ? spendBudget + 15.38 : 546.5; // simulated spend this cycle
+  const spendSpent  = over ? spendBudget + 15.38 : 1185.0; // end-of-cycle spend, near the limit
   const exceeded    = spendSpent > spendBudget;
   const spendPct    = spendBudget ? Math.round((spendSpent / spendBudget) * 100) : 0;
   const spendOver   = Math.max(0, spendSpent - spendBudget);
