@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import AppBar from '@/components/shell/AppBar';
@@ -113,19 +113,31 @@ function ManageContent() {
   const params = useSearchParams();
   const fwId   = params.get('fw')     || 'warren';
   const locked = params.get('locked') !== '0';
+  // Over-spend entry (from the blocked Shopee payment): show the exceeded
+  // Overview for a beat, then auto-swipe to Settings so the user can switch off.
+  const over   = params.get('over') === '1';
   const fw     = fwById(fwId);
   const [showPause, setShowPause] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState(params.get('tab') === 'settings' ? 'settings' : 'overview');
+  const [tab, setTab] = useState(over ? 'overview' : (params.get('tab') === 'settings' ? 'settings' : 'overview'));
+
+  useEffect(() => {
+    if (!over) return;
+    const t = setTimeout(() => setTab('settings'), 1150);
+    return () => clearTimeout(t);
+  }, [over]);
 
   // Brief key-loader on the same screen before navigating (no separate screen).
   const go = (href) => { setShowPause(false); setLoading(true); setTimeout(() => router.push(href), 1100); };
 
-  // Spending-so-far vs the framework's Spending budget (rows[1])
+  // Spending-so-far vs the framework's Spending budget (rows[1]). In the
+  // over-spend flow the spend is pushed past the budget to warn the user (red).
   const fmtSGD2     = (n) => 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const spendBudget = parseFloat(fw.rows[1].amount.replace(/[^0-9.]/g, '')) || 0;
-  const spendSpent  = 546.5; // simulated spend this cycle
-  const spendPct    = spendBudget ? Math.min(100, Math.round((spendSpent / spendBudget) * 100)) : 0;
+  const spendSpent  = over ? spendBudget + 15.38 : 546.5; // simulated spend this cycle
+  const exceeded    = spendSpent > spendBudget;
+  const spendPct    = spendBudget ? Math.round((spendSpent / spendBudget) * 100) : 0;
+  const spendOver   = Math.max(0, spendSpent - spendBudget);
   const spendLeft   = Math.max(0, spendBudget - spendSpent);
 
   // Switch calls onChange(!on) — turningOn = true means user is switching lock ON.
@@ -152,7 +164,8 @@ function ManageContent() {
         <button className={`tab${tab === 'settings' ? ' active' : ''}`} onClick={() => setTab('settings')}>Settings</button>
       </div>
 
-      <div className="scroll" style={{ padding: '12px 20px 24px' }}>
+      <div className="scroll" style={{ padding: '12px 20px 24px', overflowX: 'hidden' }}>
+        <div key={tab} className="mg-pane">
         {tab === 'overview' ? (
           <>
             {/* Locked amount card */}
@@ -197,24 +210,32 @@ function ManageContent() {
               </div>
             </div>
 
-            {/* Spending so far vs budget */}
-            <div className="card" style={{ padding: 16, marginTop: 12 }}>
+            {/* Spending so far vs budget — turns red when over the limit */}
+            <div className="card" style={{ padding: 16, marginTop: 12, ...(exceeded ? { boxShadow: 'var(--shadow-card), inset 0 0 0 1px var(--dbs-red-200, #f5b5bb)' } : {}) }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ width: 10, height: 10, borderRadius: 3, background: fw.rows[1].color, flexShrink: 0 }} />
+                  <span style={{ width: 10, height: 10, borderRadius: 3, background: exceeded ? 'var(--color-brand)' : fw.rows[1].color, flexShrink: 0 }} />
                   <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)' }}>Spending this cycle</span>
                 </div>
-                <span style={{ fontSize: 13, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
+                <span style={{ fontSize: 13, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: exceeded ? 'var(--color-brand)' : 'var(--text-primary)' }}>
                   {fmtSGD2(spendSpent)}<span style={{ color: 'var(--text-tertiary)', fontWeight: 600 }}> / {fmtSGD2(spendBudget)}</span>
                 </span>
               </div>
               <div style={{ height: 8, borderRadius: 999, background: 'var(--dbs-gray-100)', marginTop: 12, overflow: 'hidden' }}>
-                <div style={{ width: spendPct + '%', height: '100%', borderRadius: 999, background: fw.rows[1].color, transition: 'width 400ms var(--ease-out)' }} />
+                <div style={{ width: Math.min(100, spendPct) + '%', height: '100%', borderRadius: 999, background: exceeded ? 'var(--color-brand)' : fw.rows[1].color, transition: 'width 400ms var(--ease-out)' }} />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 12, color: 'var(--text-tertiary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 12, color: exceeded ? 'var(--color-brand)' : 'var(--text-tertiary)', fontWeight: exceeded ? 700 : 400 }}>
                 <span>{spendPct}% used</span>
-                <span>{fmtSGD2(spendLeft)} left</span>
+                <span>{exceeded ? `${fmtSGD2(spendOver)} over budget` : `${fmtSGD2(spendLeft)} left`}</span>
               </div>
+              {exceeded && (
+                <div style={{ marginTop: 12, display: 'flex', gap: 9, background: 'var(--dbs-red-50)', borderRadius: 6, padding: '10px 12px' }}>
+                  <span style={{ width: 18, height: 18, borderRadius: '50%', flexShrink: 0, background: 'var(--color-brand)', color: '#fff', display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 800, lineHeight: 1 }} aria-hidden="true">!</span>
+                  <span style={{ fontSize: 12.5, lineHeight: 1.45, color: 'var(--dbs-gray-700)' }}>
+                    You've gone over your spending budget this cycle — that's why the Shopee payment was blocked.
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* What Payday Lock means + learn more */}
@@ -270,6 +291,7 @@ function ManageContent() {
             </p>
           </>
         )}
+        </div>
       </div>
 
       {showPause && (
@@ -282,6 +304,11 @@ function ManageContent() {
       )}
 
       {loading && <KeyLoadingOverlay />}
+
+      <style>{`
+        @keyframes mgPaneIn { from { transform: translateX(36px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .mg-pane { animation: mgPaneIn 380ms cubic-bezier(0.32, 0.72, 0, 1); }
+      `}</style>
     </div>
   );
 }

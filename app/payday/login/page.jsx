@@ -7,10 +7,11 @@ function LoginContent() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get('next');
+  const over = params.get('over') === '1';
 
   const onComplete = () => {
     if (next === 'manage') {
-      router.push('/payday/manage?fw=warren&locked=1');
+      router.push(`/payday/manage?fw=warren&locked=1${over ? '&over=1' : ''}`);
     } else {
       router.push('/payday/home?setup=1');
     }
