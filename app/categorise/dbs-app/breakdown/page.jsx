@@ -153,7 +153,7 @@ function BreakdownContent() {
               <div>
                 <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--text-primary)' }}>Spending this cycle</div>
                 <button
-                  onClick={() => router.push('/payday/manage?fw=warren&locked=1')}
+                  onClick={() => router.push('/payday/manage?fw=warren&locked=1&from=breakdown')}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginTop: 5, background: 'var(--dbs-gray-100)', border: 'none', borderRadius: 999, padding: '3px 9px', fontSize: 11, fontWeight: 700, color: 'var(--text-secondary)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}
                 >
                   <Lock size={11} /> from Payday Lock

@@ -255,7 +255,7 @@ function MoreContent() {
               <button
                 key={tile.label}
                 className="more-tile"
-                onClick={tile.active ? () => router.push(`/payday/manage?fw=${fwId}&locked=${locked ? 1 : 0}`) : undefined}
+                onClick={tile.active ? () => router.push(`/payday/manage?fw=${fwId}&locked=${locked ? 1 : 0}&from=more`) : undefined}
               >
                 <span className="more-tile__icon" style={{ color: 'var(--dbs-gray-600)' }}>
                   <Icon />

@@ -7,6 +7,7 @@ import Donut from '@/components/primitives/Donut';
 import Switch from '@/components/primitives/Switch';
 import Drawer from '@/components/primitives/Drawer';
 import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
+import { setNextRouteDirection } from '@/components/shell/RouteTransition';
 import { Check, ChevronRight, HelpCircle, Lock, Unlock } from 'lucide-react';
 import { fwById } from '@/lib/frameworks';
 
@@ -117,6 +118,15 @@ function ManageContent() {
   // Overview for a beat, then auto-swipe to Settings so the user can switch off.
   const over   = params.get('over') === '1';
   const fw     = fwById(fwId);
+
+  // Return to wherever the user opened Payday Lock from (defaults to Home).
+  const lockedQ  = locked ? 1 : 0;
+  const from     = params.get('from');
+  const backHref =
+    from === 'more'      ? `/payday/more?fw=${fwId}&locked=${lockedQ}` :
+    from === 'breakdown' ? `/categorise/dbs-app/breakdown?range=1m` :
+    `/payday/home?fw=${fwId}&locked=${lockedQ}`;
+  const goBack = () => { setNextRouteDirection(-1); router.push(backHref); };
   const [showPause, setShowPause] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState(over ? 'overview' : (params.get('tab') === 'settings' ? 'settings' : 'overview'));
@@ -157,7 +167,7 @@ function ManageContent() {
 
   return (
     <div className="screen screen--white" style={{ position: 'relative' }}>
-      <AppBar title="Payday Lock" onBack={() => router.push(`/payday/more?fw=${fwId}&locked=${locked ? 1 : 0}`)} />
+      <AppBar title="Payday Lock" onBack={goBack} />
 
       <div className="tabs">
         <button className={`tab${tab === 'overview' ? ' active' : ''}`} onClick={() => setTab('overview')}>Overview</button>

@@ -86,7 +86,7 @@ function HomeContent() {
             {tab === 'accounts' ? (
               <>
                 <div className="card" style={{ padding: 16, margin: '16px 0 6px', cursor: 'pointer', boxShadow: 'var(--shadow-card), inset 0 0 0 1px var(--color-border)' }}
-                  onClick={() => router.push(`/payday/manage?fw=${fwId}&locked=${locked ? 1 : 0}${locked ? '' : '&tab=settings'}`)}>
+                  onClick={() => router.push(`/payday/manage?fw=${fwId}&locked=${locked ? 1 : 0}&from=home${locked ? '' : '&tab=settings'}`)}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     {locked ? (
                       <span className="chip chip--ok"><Lock size={13} /> Payday Lock active</span>
