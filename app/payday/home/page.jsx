@@ -143,7 +143,7 @@ function HomeContent() {
         </div>
       </div>
 
-      <BottomNav active="home" onNav={id => id === 'more' && router.push('/payday/more')} />
+      <BottomNav active="home" onNav={id => id === 'more' && router.push(`/payday/more?fw=${fwId}&locked=${locked ? 1 : 0}`)} />
 
       {/* Setup drawer */}
       {showSetup && (
