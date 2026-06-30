@@ -12,6 +12,8 @@ function SuccessContent() {
   const params = useSearchParams();
   const variant = params.get('variant') || 'locked';
   const fwId = params.get('fw') || 'warren';
+  const over = params.get('over') === '1';
+  const overQ = over ? '&over=1' : '';
   const pauseMode = params.get('pauseMode') || '';
   const pauseLabel = params.get('pauseLabel') || '';
   const fw = fwById(fwId);
@@ -50,7 +52,7 @@ function SuccessContent() {
         ['lock', 'Your current locked savings stay locked until then.'],
         ['chart', 'You can change your framework again anytime.'],
       ],
-      next: `/payday/manage?fw=${fwId}&locked=1`,
+      next: `/payday/manage?fw=${fwId}&locked=1${overQ}`,
     },
     off: {
       illo: 'unlock',

@@ -20,7 +20,7 @@ export default function ShopeeBlockedPage() {
   function openDbs() {
     setShowNotif(false);
     setNextRouteDirection(1);
-    router.push('/payday/login?next=manage&over=1');
+    router.push('/payday/login?next=manage&over=1&act=1');
   }
 
   return (

@@ -13,6 +13,8 @@ function FrameworksContent() {
   const params = useSearchParams();
   const mode = params.get('mode') || 'setup'; // setup | change
   const currentFw = params.get('current') || 'warren';
+  const over = params.get('over') === '1';
+  const overQ = over ? '&over=1' : '';
   const [loading, setLoading] = useState(false);
 
   // Brief key-loader before navigating, so transitions feel like a real app.
@@ -63,13 +65,13 @@ function FrameworksContent() {
                   <button
                     className="fw-card__select"
                     disabled={isCurrent}
-                    onClick={() => !isCurrent && go(`/payday/frameworks/preview?fw=${fw.id}&mode=${mode}`)}
+                    onClick={() => !isCurrent && go(`/payday/frameworks/preview?fw=${fw.id}&mode=${mode}${overQ}`)}
                   >
                     {isCurrent ? 'Selected' : isChange ? 'Switch to this' : 'Select framework'}
                   </button>
                   <button
                     className="fw-card__more"
-                    onClick={() => router.push(`/payday/frameworks/theory?fw=${fw.id}&mode=${mode}`)}
+                    onClick={() => router.push(`/payday/frameworks/theory?fw=${fw.id}&mode=${mode}${overQ}`)}
                   >
                     Read more <ChevronRight size={15} />
                   </button>

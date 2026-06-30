@@ -117,6 +117,11 @@ function ManageContent() {
   // Over-spend entry (from the blocked Shopee payment): show the exceeded
   // Overview for a beat, then auto-swipe to Settings so the user can switch off.
   const over   = params.get('over') === '1';
+  // `act` = "this entry needs action" — only the first arrival (from the blocked
+  // Shopee payment) auto-swipes to Settings. After switching framework we keep
+  // `over` (so the high spend persists) but drop `act`, landing on Overview so
+  // the user can see whether the new framework's budget resolves the over-spend.
+  const act    = params.get('act') === '1';
   const fw     = fwById(fwId);
 
   // Return to wherever the user opened Payday Lock from (defaults to Home).
@@ -132,10 +137,10 @@ function ManageContent() {
   const [tab, setTab] = useState(over ? 'overview' : (params.get('tab') === 'settings' ? 'settings' : 'overview'));
 
   useEffect(() => {
-    if (!over) return;
+    if (!act) return;
     const t = setTimeout(() => setTab('settings'), 1150);
     return () => clearTimeout(t);
-  }, [over]);
+  }, [act]);
 
   // Brief key-loader on the same screen before navigating (no separate screen).
   const go = (href) => { setShowPause(false); setLoading(true); setTimeout(() => router.push(href), 1100); };
@@ -144,7 +149,10 @@ function ManageContent() {
   // over-spend flow the spend is pushed past the budget to warn the user (red).
   const fmtSGD2     = (n) => 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const spendBudget = parseFloat(fw.rows[1].amount.replace(/[^0-9.]/g, '')) || 0;
-  const spendSpent  = over ? spendBudget + 15.38 : 1185.0; // end-of-cycle spend, near the limit
+  // End-of-cycle spend. In the over-spend scenario it's a FIXED amount (the
+  // money is already spent, regardless of framework) so switching to a plan with
+  // a bigger Spending budget can resolve the over-spend — exceeded is derived.
+  const spendSpent  = over ? 1275.38 : 1185.0;
   const exceeded    = spendSpent > spendBudget;
   const spendPct    = spendBudget ? Math.round((spendSpent / spendBudget) * 100) : 0;
   const spendOver   = Math.max(0, spendSpent - spendBudget);
@@ -272,7 +280,7 @@ function ManageContent() {
                 <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', marginTop: 3 }}>{fw.split}</div>
               </div>
               <button
-                onClick={() => router.push(`/payday/frameworks?mode=change&current=${fwId}`)}
+                onClick={() => router.push(`/payday/frameworks?mode=change&current=${fwId}${over ? '&over=1' : ''}`)}
                 style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-brand)', fontWeight: 700, fontSize: 14, fontFamily: 'var(--font-sans)', display: 'inline-flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap', flexShrink: 0 }}
               >
                 Change <ChevronRight size={15} />

@@ -13,6 +13,8 @@ function PreviewContent() {
   const params = useSearchParams();
   const fwId = params.get('fw') || 'warren';
   const mode = params.get('mode') || 'setup';
+  const over = params.get('over') === '1';
+  const overQ = over ? '&over=1' : '';
   const fw = fwById(fwId);
   const [showLock, setShowLock] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,7 +57,7 @@ function PreviewContent() {
       <div className="screen-footer">
         <button className="btn-primary" onClick={() => {
           if (mode === 'change') {
-            go(`/payday/success?variant=updated&fw=${fwId}`);
+            go(`/payday/success?variant=updated&fw=${fwId}${overQ}`);
           } else {
             setShowLock(true);
           }
