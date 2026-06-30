@@ -17,13 +17,13 @@ export const metadata = {
     url: 'https://genz-fi-dbs.vercel.app',
     siteName: 'GenZ FI Concept',
     type: 'website',
-    images: [{ url: '/assets/og/og-image.png', width: 1200, height: 630, alt: 'GenZ FI Concept — DBS digibank usability prototype' }],
+    images: [{ url: '/assets/og/og-image.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: 'GenZ FI Concept — DBS digibank usability prototype' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'GenZ FI Concept — DBS digibank',
     description: 'Usability test prototype for DBS digibank Gen Z financial-intelligence features.',
-    images: ['/assets/og/og-image.png'],
+    images: ['/assets/og/og-image.jpg'],
   },
 };
 
