@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import AppBar from '@/components/shell/AppBar';
 import Donut from '@/components/primitives/Donut';
-import Switch from '@/components/primitives/Switch';
 import Drawer from '@/components/primitives/Drawer';
 import { KeyLoadingOverlay } from '@/components/shell/KeyLoader';
 import { setNextRouteDirection } from '@/components/shell/RouteTransition';
@@ -287,26 +286,48 @@ function ManageContent() {
               </button>
             </div>
 
-            {/* Toggle */}
-            <div className="card" style={{ padding: 16, marginTop: 12, display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15.5, fontWeight: 700 }}>Payday Lock</div>
-                <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', marginTop: 2 }}>Auto-lock savings every payday</div>
+            {/* Payday Lock on/off — status + an explicit, labelled action */}
+            <div className="card" style={{ padding: 16, marginTop: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
+                <span style={{ width: 34, height: 34, borderRadius: 8, background: locked ? '#E7F6EF' : 'var(--dbs-gray-100)', color: locked ? 'var(--color-positive)' : 'var(--text-secondary)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                  {locked ? <Lock size={17} /> : <Unlock size={17} />}
+                </span>
+                <div style={{ flex: 1, minWidth: 0, fontSize: 15.5, fontWeight: 700 }}>Payday Lock</div>
+                {locked ? (
+                  <span className="chip chip--ok" style={{ fontSize: 11.5, padding: '4px 9px' }}><Check size={12} /> Active</span>
+                ) : (
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11.5, fontWeight: 700, padding: '4px 11px', borderRadius: 999, background: 'var(--dbs-gray-100)', color: 'var(--text-secondary)' }}>Off</span>
+                )}
               </div>
-              <Switch on={locked} onChange={handleToggle} />
+
+              <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: 11 }}>
+                {locked
+                  ? 'Your savings auto-lock every payday and stay out of reach until your next salary.'
+                  : "Your savings aren't being locked right now — they stay available to spend."}
+              </div>
+
+              <button
+                className={locked ? 'btn-secondary' : 'btn-primary'}
+                style={{ marginTop: 14 }}
+                onClick={() => handleToggle(!locked)}
+              >
+                {locked ? 'Turn off Payday Lock' : 'Turn Payday Lock back on'}
+              </button>
+
+              <div style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5, marginTop: 11, textAlign: 'center' }}>
+                {locked
+                  ? 'Frees up your locked savings early — you’ll confirm with Face ID.'
+                  : 'Auto-locks your savings again from your next payday.'}
+              </div>
             </div>
 
-            {/* Info banner */}
+            {/* Info banner — clarifies this is about framework changes, not the lock */}
             <div style={{ marginTop: 16, display: 'flex', gap: 10, background: 'var(--dbs-red-50)', borderRadius: 4, padding: '14px 16px' }}>
               <HelpCircle size={18} color="var(--color-brand)" style={{ flexShrink: 0, marginTop: 1 }} />
               <div style={{ fontSize: 13, lineHeight: 1.5, color: 'var(--dbs-gray-700)' }}>
-                Changes apply from your <strong>next payday</strong>. Your current lock stays active until <strong>27 July</strong>.
+                Switching framework takes effect from your <strong>next payday</strong> — your current lock keeps running until <strong>27 July</strong>.
               </div>
             </div>
-
-            <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', lineHeight: 1.5, marginTop: 16, textAlign: 'center' }}>
-              Switching framework or turning off Payday Lock needs Face ID confirmation.
-            </p>
           </>
         )}
         </div>
