@@ -216,15 +216,34 @@ function ManageContent() {
                 ))}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-                {locked ? (
-                  <span className="chip chip--ok"><Check size={13} /> Active · unlocks 27 Jul 2026</span>
-                ) : (
+              {locked ? (
+                <div style={{ marginTop: 16, border: '1px solid var(--color-border)', borderRadius: 'var(--radius-tile)', overflow: 'hidden' }}>
+                  <div style={{ background: '#E7F6EF', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ display: 'grid', placeItems: 'center', width: 20, height: 20, borderRadius: '50%', background: 'var(--color-positive)', color: '#fff', flexShrink: 0 }}><Check size={12} /></span>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--color-positive)' }}>Active</span>
+                    <span style={{ flex: 1 }} />
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--color-positive)' }}>releases 27 Jul · 26 days left</span>
+                  </div>
+                  <div style={{ padding: '13px 14px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                      <Lock size={12} color="var(--text-tertiary)" />
+                      <div style={{ flex: 1, height: 6, borderRadius: 999, background: 'var(--dbs-gray-100)', overflow: 'hidden' }}>
+                        <div style={{ width: '13%', height: '100%', borderRadius: 999, background: 'var(--color-positive)' }} />
+                      </div>
+                      <Unlock size={12} color="var(--text-tertiary)" />
+                    </div>
+                    <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.55, marginTop: 11 }}>
+                      On <strong style={{ color: 'var(--text-primary)' }}>27 Jul</strong> this {fw.lockAmount} releases into your savings <strong style={{ color: 'var(--text-primary)' }}>automatically — no Face ID needed</strong> — and a fresh amount locks from your new pay. Want it sooner? Turn off Payday Lock with Face ID in Settings.
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12, fontWeight: 700, padding: '5px 11px', borderRadius: 999, background: 'var(--dbs-gray-100)', color: 'var(--text-secondary)' }}>
                     <Unlock size={13} /> Off · auto-locks next payday
                   </span>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* Spending so far vs budget — turns red when over the limit */}
@@ -258,7 +277,7 @@ function ManageContent() {
             {/* What Payday Lock means + learn more */}
             <div style={{ marginTop: 16 }}>
               <div style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                <strong style={{ color: 'var(--text-primary)' }}>What is Payday Lock?</strong> The moment your salary lands, your savings are automatically moved into a locked pocket — out of sight and out of reach until your next payday. Your spending and invest portions stay available as usual.
+                <strong style={{ color: 'var(--text-primary)' }}>What is Payday Lock?</strong> When your salary lands, your Savings portion moves into a locked pocket — out of reach until your next payday. Then it releases into your savings automatically — you keep every dollar — and a fresh amount locks from your new pay, so your savings grow a little each month. Spending and invest stay available as usual. Need your money sooner? You can unlock early anytime with Face ID.
               </div>
               <button
                 className="btn-secondary"
